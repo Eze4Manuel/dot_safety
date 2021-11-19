@@ -4,6 +4,10 @@ Dot Safety Flutter Application.
 
 ## Getting Started
 
+Designs for the project is found here
+
+- [Figma designs for project](https://www.figma.com/file/cAaid5vAi03QNX9sllkdkC/Untitled?node-id=0%3A1)
+
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
