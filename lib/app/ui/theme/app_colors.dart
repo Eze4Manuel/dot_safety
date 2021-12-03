@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   AppColors._();
+
   static const Color appPrimaryColor = Color.fromRGBO(0, 166, 81, 1);
   static const Color appColor1 = Color.fromRGBO(8, 47, 46, 1);
   static const Color appColor2 = Color.fromRGBO(97, 116, 141, 1);
   static const Color appColor3 = Color.fromRGBO(0, 166, 81, 0.5);
   static const Color appColor4 = Color.fromRGBO(255, 250, 248, 1);
+  static const Color secondaryColor = Color.fromRGBO(135, 224, 178, 1);
 
   // Other Colors
   static const Color color1 = Color.fromRGBO(255, 232, 226, 1);

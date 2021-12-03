@@ -1,4 +1,4 @@
-import 'package:dot_safety/app/ui/pages/login.dart';
+import 'package:dot_safety/app/ui/pages/reset_password.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_safety/app/utils/responsive_safe_area.dart';
 import 'package:dot_safety/app/utils/device_utils.dart';
@@ -6,7 +6,7 @@ import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ResetPassword extends StatelessWidget {
+class ForgotPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +21,7 @@ class ResetPassword extends StatelessWidget {
                 // height: DeviceUtils.getScaledHeight(context, scale: 1),
                 width: DeviceUtils.getScaledWidth(context, scale: 1),
                 color: AppColors.whiteColor,
-                child: ResetPasswordViews(context, 'assets/images/logo.png')),
+                child: ForgotPasswordViews(context, 'assets/images/logo.png')),
           );
         },
         key: null,
@@ -30,7 +30,7 @@ class ResetPassword extends StatelessWidget {
   }
 }
 
-StatelessWidget ResetPasswordViews(context, String assetLink) {
+StatelessWidget ForgotPasswordViews(context, String assetLink) {
   return SingleChildScrollView(
     child: Container(
       color: AppColors.whiteColor,
@@ -38,10 +38,12 @@ StatelessWidget ResetPasswordViews(context, String assetLink) {
           horizontal: DeviceUtils.getScaledWidth(context, scale: 0.07)),
       height: DeviceUtils.getScaledHeight(context, scale: 1),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Column(
             children: [
+              SizedBox(
+                height: DeviceUtils.getScaledHeight(context, scale: 0.11),
+              ),
               Image.asset(
                 assetLink,
                 width: DeviceUtils.getScaledWidth(context, scale: 0.2),
@@ -53,11 +55,11 @@ StatelessWidget ResetPasswordViews(context, String assetLink) {
               ),
               Center(
                 child: Text(
-                  Strings.resetPassword,
+                  Strings.forgottenPasswordTitle,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Montserrat Bold',
                       color: AppColors.appPrimaryColor),
                   textAlign: TextAlign.center,
                 ),
@@ -67,7 +69,7 @@ StatelessWidget ResetPasswordViews(context, String assetLink) {
               ),
               Center(
                 child: Text(
-                  Strings.setNewPassword,
+                  Strings.forgotPasswordText,
                   style: TextStyle(
                       fontFamily: 'Montserrat Regular',
                       fontWeight: FontWeight.w400,
@@ -89,7 +91,7 @@ StatelessWidget ResetPasswordViews(context, String assetLink) {
                       Icons.lock_outlined,
                       color: AppColors.color12,
                     ),
-                    hintText: "Create new password",
+                    hintText: "Email Address",
                     border: OutlineInputBorder(
                         borderSide: BorderSide(
                             width: 32.0, color: AppColors.appPrimaryColor),
@@ -99,41 +101,13 @@ StatelessWidget ResetPasswordViews(context, String assetLink) {
                             BorderSide(color: Colors.transparent, width: 32.0),
                         borderRadius: BorderRadius.circular(6.0)),
                   )),
-              SizedBox(
-                height: DeviceUtils.getScaledHeight(context, scale: 0.04),
-              ),
-              TextField(
-                  style: GoogleFonts.montserrat(
-                      textStyle:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                    prefixIcon: Icon(
-                      Icons.lock_outlined,
-                      color: AppColors.color12,
-                    ),
-                    hintText: "Confirm new password",
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            width: 32.0, color: AppColors.appPrimaryColor),
-                        borderRadius: BorderRadius.circular(6.0)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.transparent, width: 32.0),
-                        borderRadius: BorderRadius.circular(6.0)),
-                  )),
-            ],
-          ),
-          Column(
-            children: [
               SizedBox(
                 height: DeviceUtils.getScaledHeight(context, scale: 0.02),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => Login()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ResetPassword()));
                 },
                 child: Container(
                   height: 50,
@@ -142,7 +116,7 @@ StatelessWidget ResetPasswordViews(context, String assetLink) {
                       color: AppColors.appPrimaryColor),
                   child: Center(
                     child: Text(
-                      Strings.resetPassword,
+                      Strings.send,
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
@@ -152,7 +126,7 @@ StatelessWidget ResetPasswordViews(context, String assetLink) {
                     ),
                   ),
                 ),
-              ),
+              )
             ],
           ),
         ],

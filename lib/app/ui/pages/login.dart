@@ -1,5 +1,5 @@
-import 'package:dot_safety/app/ui/pages/reset_password.dart';
-import 'package:dot_safety/app/ui/pages/selectLawEnforcement.dart';
+import 'package:dot_safety/app/ui/pages/dashboard/dashboard.dart';
+import 'package:dot_safety/app/ui/pages/forgot_password.dart';
 import 'package:dot_safety/app/ui/pages/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_safety/app/utils/responsive_safe_area.dart';
@@ -57,11 +57,11 @@ StatelessWidget LoginViews(context, String assetLink, String title) {
               Center(
                 child: Text(
                   title,
-                  style: GoogleFonts.montserrat(
-                      textStyle: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                          color: AppColors.appPrimaryColor)),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      fontFamily: 'Montserrat Bold',
+                      color: AppColors.appPrimaryColor),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -121,25 +121,25 @@ StatelessWidget LoginViews(context, String assetLink, String title) {
                 children: [
                   Text(
                     Strings.keepMe,
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 13,
-                    )),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 13,
+                        fontFamily: 'Montserrat Regular'),
                     textAlign: TextAlign.center,
                   ),
                   GestureDetector(
-                    onTap: (){
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ResetPassword()));
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ForgotPassword()));
                     },
                     child: Text(
                       Strings.forgottenPassword,
-                      style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 13,
-                      )),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 13,
+                          fontFamily: 'Montserrat Regular'),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -151,7 +151,7 @@ StatelessWidget LoginViews(context, String assetLink, String title) {
               GestureDetector(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SelectLawEnforcement()));
+                      MaterialPageRoute(builder: (context) => Dashboard()));
                 },
                 child: Container(
                   height: 50,
@@ -161,11 +161,11 @@ StatelessWidget LoginViews(context, String assetLink, String title) {
                   child: Center(
                     child: Text(
                       Strings.login,
-                      style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                              color: AppColors.whiteColor)),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          fontFamily: 'Montserrat Regular',
+                          color: AppColors.whiteColor),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -176,11 +176,10 @@ StatelessWidget LoginViews(context, String assetLink, String title) {
               ),
               Text(
                 Strings.orLoginWith,
-                style: GoogleFonts.montserrat(
-                    textStyle: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 13,
-                )),
+                style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 13,
+                    fontFamily: 'Montserrat Regular'),
                 textAlign: TextAlign.center,
               ),
               SizedBox(
@@ -220,19 +219,18 @@ StatelessWidget LoginViews(context, String assetLink, String title) {
                 },
                 child: Text.rich(TextSpan(
                     text: Strings.donthaveAccount,
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 13,
-                    )),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 13,
+                        fontFamily: 'Montserrat Regular'),
                     children: <InlineSpan>[
                       TextSpan(
                         text: Strings.signupText,
-                        style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 15,
-                                color: AppColors.appPrimaryColor)),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 15,
+                            fontFamily: 'Montserrat Regular',
+                            color: AppColors.appPrimaryColor),
                       )
                     ])),
               ),

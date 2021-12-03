@@ -50,11 +50,11 @@ StatelessWidget WelcomeViews(
               Center(
                 child: Text(
                   title,
-                  style: GoogleFonts.montserrat(
-                      textStyle: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                          color: AppColors.appPrimaryColor)),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      fontFamily: 'Montserrat Bold',
+                      color: AppColors.appPrimaryColor),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -63,9 +63,10 @@ StatelessWidget WelcomeViews(
               ),
               Text(
                 subText,
-                style: GoogleFonts.montserrat(
-                    textStyle:
-                        TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
+                style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                    fontFamily: 'Montserrat Regular'),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -77,9 +78,8 @@ StatelessWidget WelcomeViews(
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Login())
-                  );
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => Login()));
                 },
                 child: Container(
                   height: 50,
@@ -90,10 +90,11 @@ StatelessWidget WelcomeViews(
                   child: Center(
                     child: Text(
                       Strings.getStarted,
-                      style: GoogleFonts.montserrat(
-                          textStyle:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 16,
-                              color: AppColors.whiteColor)),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          color: AppColors.whiteColor,
+                          fontFamily: 'Montserrat Regular'),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -104,10 +105,10 @@ StatelessWidget WelcomeViews(
               ),
               Text(
                 Strings.learnMore,
-                style: GoogleFonts.montserrat(
-                    textStyle:
-                    TextStyle(fontWeight: FontWeight.w400, fontSize: 13,
-                    )),
+                style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 13,
+                    fontFamily: 'Montserrat Regular'),
                 textAlign: TextAlign.center,
               ),
             ],

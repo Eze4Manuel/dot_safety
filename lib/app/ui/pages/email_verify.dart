@@ -48,9 +48,10 @@ StatelessWidget EmailVerifyViews(
               ),
               Text(
                 'Hi Helen, ${Strings.verifyMailText}',
-                style: GoogleFonts.montserrat(
-                    textStyle:
-                    TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
+                style:
+                    TextStyle(
+                        fontFamily: 'Montserrat Regular',
+                        fontWeight: FontWeight.w400, fontSize: 14),
                 textAlign: TextAlign.center,
               ),
               SizedBox(
@@ -70,10 +71,10 @@ StatelessWidget EmailVerifyViews(
                   child: Center(
                     child: Text(
                       Strings.verifyEmail,
-                      style: GoogleFonts.montserrat(
-                          textStyle:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 16,
-                              color: AppColors.whiteColor)),
+                      style:
+                          TextStyle(fontFamily: 'Montserrat Regular',
+                              fontWeight: FontWeight.w400, fontSize: 16,
+                              color: AppColors.whiteColor),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -84,15 +85,14 @@ StatelessWidget EmailVerifyViews(
               ),
               Text(
                 Strings.resendMail,
-                style: GoogleFonts.montserrat(
-                    textStyle:
-                    TextStyle(fontWeight: FontWeight.w400, fontSize: 14,
-                    )),
+                style:
+                    TextStyle(fontFamily: 'Montserrat Regular',
+                      fontWeight: FontWeight.w400, fontSize: 14,
+                    ),
                 textAlign: TextAlign.center,
               ),
             ],
           ),
-
         ],
       ));
 }
