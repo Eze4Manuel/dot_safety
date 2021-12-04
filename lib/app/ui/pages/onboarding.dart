@@ -12,9 +12,12 @@ class Onboarding extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
-      body: ResponsiveSafeArea(builder: (context, size) {
-        return ContentPage();
-      }, key: null,),
+      body: ResponsiveSafeArea(
+        builder: (context, size) {
+          return ContentPage();
+        },
+        key: null,
+      ),
     );
   }
 }
@@ -75,20 +78,22 @@ class ContentPageStage extends State<ContentPage> {
                       height: DeviceUtils.getScaledHeight(context, scale: 0.79),
                       width: DeviceUtils.getScaledWidth(context, scale: 1),
                       color: AppColors.whiteColor,
-                      child: SplashViews( context, 'assets/images/icon1.png', Strings.onBoardingTitle1, Strings.onBoardingText1),
+                      child: SplashViews(context, 'assets/images/icon1.png',
+                          Strings.onBoardingTitle1, Strings.onBoardingText1),
                     ),
                     Container(
                       height: DeviceUtils.getScaledHeight(context, scale: 0.79),
                       width: DeviceUtils.getScaledWidth(context, scale: 1),
                       color: AppColors.whiteColor,
-                      child: SplashViews( context, 'assets/images/icon2.png', Strings.onBoardingTitle2, Strings.onBoardingText2),
+                      child: SplashViews(context, 'assets/images/icon2.png',
+                          Strings.onBoardingTitle2, Strings.onBoardingText2),
                     ),
                     Container(
                       height: DeviceUtils.getScaledHeight(context, scale: 0.79),
                       width: DeviceUtils.getScaledWidth(context, scale: 1),
                       color: AppColors.whiteColor,
-                      child: SplashViews( context, 'assets/images/icon3.png', Strings.onBoardingTitle3, Strings.onBoardingText3),
-
+                      child: SplashViews(context, 'assets/images/icon3.png',
+                          Strings.onBoardingTitle3, Strings.onBoardingText3),
                     ),
                   ],
                 ),
@@ -107,12 +112,12 @@ class ContentPageStage extends State<ContentPage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        if (_currentPage == 2){
+                        if (_currentPage == 2) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Welcome()));
-                        }else{
+                        } else {
                           if (_pageController.hasClients) {
                             _pageController.animateToPage(
                               _currentPage + 1,
@@ -121,7 +126,6 @@ class ContentPageStage extends State<ContentPage> {
                             );
                           }
                         }
-
                       },
                       child: Container(
                         height: 40,
@@ -131,10 +135,10 @@ class ContentPageStage extends State<ContentPage> {
                             color: AppColors.appPrimaryColor),
                         margin: EdgeInsets.symmetric(horizontal: 32),
                         child: Center(
-                          child: Icon(Icons.arrow_forward, color: AppColors.whiteColor)
-                          ),
-                        ),
+                            child: Icon(Icons.arrow_forward,
+                                color: AppColors.whiteColor)),
                       ),
+                    ),
                   ],
                 ),
               ),
@@ -146,45 +150,48 @@ class ContentPageStage extends State<ContentPage> {
   }
 }
 
-StatelessWidget SplashViews (context, String assetLink, String title, String subText){
+StatelessWidget SplashViews(
+    context, String assetLink, String title, String subText) {
   return Container(
-    color: AppColors.whiteColor,
-    padding: EdgeInsets.symmetric(horizontal: DeviceUtils.getScaledWidth(context, scale: 0.05)),
-    height: 100,
-    width: 50,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(assetLink,
-          width: DeviceUtils.getScaledWidth(context, scale: 0.6),
-          height: DeviceUtils.getScaledHeight(context, scale: 0.6),
-          fit: BoxFit.contain,),
-        SizedBox(
-          height: DeviceUtils.getScaledHeight(context, scale: 0.01),
-        ),
-        Center(
-          child: Text(
-            title,
-            style: GoogleFonts.montserrat(textStyle: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
-              color: AppColors.appPrimaryColor
-            )),
-            textAlign: TextAlign.center,
+      color: AppColors.whiteColor,
+      padding: EdgeInsets.symmetric(
+          horizontal: DeviceUtils.getScaledWidth(context, scale: 0.05)),
+      height: 100,
+      width: 50,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            assetLink,
+            width: DeviceUtils.getScaledWidth(context, scale: 0.6),
+            height: DeviceUtils.getScaledHeight(context, scale: 0.6),
+            fit: BoxFit.contain,
           ),
-        ),
-        SizedBox(
-          height: DeviceUtils.getScaledHeight(context, scale: 0.02),
-        ),
-        Text(
-          subText,
-          style: GoogleFonts.montserrat(textStyle: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 13
-          )),
-          textAlign: TextAlign.center,
-        )
-      ],
-    )
-  );
+          SizedBox(
+            height: DeviceUtils.getScaledHeight(context, scale: 0.01),
+          ),
+          Center(
+            child: Text(
+              title,
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: AppColors.appPrimaryColor,
+                  fontFamily: 'Montserrat ExtraBold'),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          SizedBox(
+            height: DeviceUtils.getScaledHeight(context, scale: 0.02),
+          ),
+          Text(
+            subText,
+            style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 13,
+                fontFamily: 'Montserrat Regular'),
+            textAlign: TextAlign.center,
+          )
+        ],
+      ));
 }

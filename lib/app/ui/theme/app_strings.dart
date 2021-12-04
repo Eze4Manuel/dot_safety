@@ -19,9 +19,11 @@ class Strings {
   static const String loginToDotSafety = "LOGIN TO DOTSAFETY";
 
   static const String forgottenPassword = "Forgot Password?";
+  static const String forgottenPasswordTitle = "ENTER EMAIL ADDRESS";
   static const String keepMe = "Keep me logged in";
   static const String login = "LOGIN";
   static const String loginText = "Login";
+  static const String send = "SEND";
 
   static const String donthaveAccount = "Don't have account? ";
   static const String alreadyhaveAccount = "Already have an account? ";
@@ -33,7 +35,11 @@ class Strings {
   static const String verifyEmail = "VERIFY EMAIL";
   static const String verifyMailText = "an email has been sent to your email, Kindly check your inbox to verify it.";
   static const String resetPassword = "RESET PASSWORD";
+  static const String forgotPasswordText = "Enter your verify email address to reset your password.";
+
+
   static const String setNewPassword = "Set your new password so you can login";
+  static const String selectEvent = "Select an Event";
 
   static const String selectLaw = "SELECT LAW \n ENFORCEMENT AGENCY";
 
@@ -42,6 +48,44 @@ class Strings {
   static const String getIn = "Hi, Get in";
   static const String signIn = "Sign In";
   static const String createAccount = "Create Account";
+
+  static const String crimeOffence = "Crime \nOffence";
+  static const String stopAndSearch = "Stop and \nSearch";
+  static const String trafficOffence = "Traffic \nOffence";
+  static const String drugTrafficking = "Drug \ntrafficking";
+  static const String illegalBunkering = "Illegal \nbunkering";
+  static const String others = "Others";
+  static const String vehicle = "Vehicle";
+  static const String proceed = "PROCEED";
+
+
+  static const String trafficOffenceTitle = "Traffic Offence";
+  static const String expectedFine = "Expected Fine to pay";
+  static const String points = "Points";
+  static const String yourPoints = "Your Points";
+  static const String descriptionOffOffence = "Description of Offence";
+  static const String personalInfo = "Personal Information";
+  static const String makePayment = "MAKE PAYMENT";
+  static const String scanOfficerQR = "Scan Officer’s QR code ";
+  static const String commentList = "Comments";
+  static const String success = "Success";
+  static const String indicateComment = "Indicate a comment by clicking on the box below:";
+  static const String ok = "OK";
+  static const String vehicleDocument = "Vehicle Document";
+  static const String uploadVehicleDocument = "Upload Vehicle Document";
+  static const String uploadYourDocument = "Upload Your Document";
+  static const String upload = "UPLOAD";
+  static const String fileUpload = "Upload File Documents";
+  static const String done = "DONE";
+  static const String notification = "Notification";
+  static const String alertReport = "Alert Report";
+  static const String accounts = "Account";
+  static const String settings = "Settings";
+
+
+
+
+
 
 
 }

@@ -44,11 +44,11 @@ StatelessWidget SignUpViews(context, String title) {
                 Center(
                   child: Text(
                     title,
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: AppColors.appPrimaryColor)),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        fontFamily: 'Montserrat Bold',
+                        color: AppColors.appPrimaryColor),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -202,11 +202,11 @@ StatelessWidget SignUpViews(context, String title) {
                     child: Center(
                       child: Text(
                         Strings.signup,
-                        style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: AppColors.whiteColor)),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                            fontFamily: 'Montserrat Regular',
+                            color: AppColors.whiteColor),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -223,19 +223,18 @@ StatelessWidget SignUpViews(context, String title) {
                   },
                   child: Text.rich(TextSpan(
                       text: Strings.alreadyhaveAccount,
-                      style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 13,
-                      )),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 13,
+                          fontFamily: 'Montserrat Regular'),
                       children: <InlineSpan>[
                         TextSpan(
                           text: Strings.loginText,
-                          style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 15,
-                                  color: AppColors.appPrimaryColor)),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 15,
+                              fontFamily: 'Montserrat Regular',
+                              color: AppColors.appPrimaryColor),
                         )
                       ])),
                 ),

@@ -1,3 +1,4 @@
+import 'package:dot_safety/app/ui/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_safety/app/utils/responsive_safe_area.dart';
 import 'package:dot_safety/app/utils/device_utils.dart';
@@ -53,11 +54,11 @@ StatelessWidget ResetPasswordViews(context, String assetLink) {
               Center(
                 child: Text(
                   Strings.resetPassword,
-                  style: GoogleFonts.montserrat(
-                      textStyle: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                          color: AppColors.appPrimaryColor)),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      fontFamily: 'Montserrat Regular',
+                      color: AppColors.appPrimaryColor),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -67,9 +68,10 @@ StatelessWidget ResetPasswordViews(context, String assetLink) {
               Center(
                 child: Text(
                   Strings.setNewPassword,
-                  style: GoogleFonts.montserrat(
-                      textStyle:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
+                  style: TextStyle(
+                      fontFamily: 'Montserrat Regular',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -79,7 +81,7 @@ StatelessWidget ResetPasswordViews(context, String assetLink) {
               TextField(
                   style: GoogleFonts.montserrat(
                       textStyle:
-                      TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
                   obscureText: true,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -94,7 +96,7 @@ StatelessWidget ResetPasswordViews(context, String assetLink) {
                         borderRadius: BorderRadius.circular(6.0)),
                     focusedBorder: OutlineInputBorder(
                         borderSide:
-                        BorderSide(color: Colors.transparent, width: 32.0),
+                            BorderSide(color: Colors.transparent, width: 32.0),
                         borderRadius: BorderRadius.circular(6.0)),
                   )),
               SizedBox(
@@ -103,7 +105,7 @@ StatelessWidget ResetPasswordViews(context, String assetLink) {
               TextField(
                   style: GoogleFonts.montserrat(
                       textStyle:
-                      TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
                   obscureText: true,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -118,19 +120,21 @@ StatelessWidget ResetPasswordViews(context, String assetLink) {
                         borderRadius: BorderRadius.circular(6.0)),
                     focusedBorder: OutlineInputBorder(
                         borderSide:
-                        BorderSide(color: Colors.transparent, width: 32.0),
+                            BorderSide(color: Colors.transparent, width: 32.0),
                         borderRadius: BorderRadius.circular(6.0)),
                   )),
             ],
           ),
-
           Column(
             children: [
               SizedBox(
                 height: DeviceUtils.getScaledHeight(context, scale: 0.02),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => Login()));
+                },
                 child: Container(
                   height: 50,
                   decoration: BoxDecoration(
@@ -139,11 +143,11 @@ StatelessWidget ResetPasswordViews(context, String assetLink) {
                   child: Center(
                     child: Text(
                       Strings.resetPassword,
-                      style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                              color: AppColors.whiteColor)),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          fontFamily: 'Montserrat Regular',
+                          color: AppColors.whiteColor),
                       textAlign: TextAlign.center,
                     ),
                   ),
