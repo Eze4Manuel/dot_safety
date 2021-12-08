@@ -1,3 +1,4 @@
+import 'package:dot_safety/app/ui/pages/email_verify.dart';
 import 'package:dot_safety/app/ui/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_safety/app/utils/responsive_safe_area.dart';
@@ -78,8 +79,8 @@ StatelessWidget WelcomeViews(
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => Login()));
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (context) => Login()), (Route<dynamic> route) => false);
                 },
                 child: Container(
                   height: 50,

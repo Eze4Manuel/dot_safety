@@ -113,10 +113,10 @@ class ContentPageStage extends State<ContentPage> {
                     GestureDetector(
                       onTap: () {
                         if (_currentPage == 2) {
-                          Navigator.push(
+                          Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Welcome()));
+                                  builder: (context) => Welcome()), (Route<dynamic> route) => false);
                         } else {
                           if (_pageController.hasClients) {
                             _pageController.animateToPage(
