@@ -1,3 +1,4 @@
+import 'package:dot_safety/app/ui/pages/notification/alert_screen.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_safety/app/utils/responsive_safe_area.dart';
@@ -50,15 +51,7 @@ class _NotificationListState extends State<NotificationList> {
           preferredSize: Size.fromHeight(80.0),
           child: AppBar(
             automaticallyImplyLeading: false,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Padding(
-                padding: const EdgeInsets.only(top: 0),
-                child: Icon(Icons.arrow_back),
-              ),
-            ),
+
             backgroundColor: AppColors.secondaryColor,
             flexibleSpace: Align(
               alignment: Alignment.center,
@@ -160,51 +153,56 @@ class _NotificationListState extends State<NotificationList> {
 }
 
 StatelessWidget NotificationBlock(context, icon, title, subtitle, date) {
-  return Container(
-    margin: EdgeInsets.only(
-      bottom: DeviceUtils.getScaledHeight(context, scale: 0.02),
-    ),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(10), // radius of 10
-      color: AppColors.whiteColor, // green as background color
-    ),
-    child: ListTile(
-      leading: Icon(
-        icon,
-        size: 40,
-        color: icon == Icons.error ? AppColors.color5 : null,
+  return GestureDetector(
+    onTap: (){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => AlertScreen(alert: title, time: date, description: subtitle)));
+    },
+    child: Container(
+      margin: EdgeInsets.only(
+        bottom: DeviceUtils.getScaledHeight(context, scale: 0.02),
       ),
-      title: Text(
-        title,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-          fontFamily: 'Montserrat Regular'
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10), // radius of 10
+        color: AppColors.whiteColor, // green as background color
+      ),
+      child: ListTile(
+        leading: Icon(
+          icon,
+          size: 40,
+          color: icon == Icons.error ? AppColors.color5 : null,
         ),
-      ),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              fontFamily: 'Montserrat Regular',
+        title: Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            fontFamily: 'Montserrat Regular'
+          ),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              subtitle,
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                fontFamily: 'Montserrat Regular',
+              ),
             ),
-          ),
-          SizedBox(
-            height: DeviceUtils.getScaledHeight(context, scale: 0.01),
-          ),
-          Text(
-            date,
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              fontFamily: 'Montserrat Regular',
+            SizedBox(
+              height: DeviceUtils.getScaledHeight(context, scale: 0.01),
             ),
-          ),
-        ],
+            Text(
+              date,
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                fontFamily: 'Montserrat Regular',
+              ),
+            ),
+          ],
+        ),
       ),
     ),
   );

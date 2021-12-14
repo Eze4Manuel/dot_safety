@@ -1,10 +1,13 @@
 import 'dart:ui';
 
+import 'package:dot_safety/app/controller/login_controller.dart';
 import 'package:dot_safety/app/ui/pages/login.dart';
 import 'package:dot_safety/app/ui/pages/profile/settings.dart';
 import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:dot_safety/app/utils/device_utils.dart';
+import 'package:dot_safety/app/utils/shared_prefs.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Accounts extends StatefulWidget {
   const Accounts({Key? key}) : super(key: key);
@@ -14,6 +17,28 @@ class Accounts extends StatefulWidget {
 }
 
 class _AccountsState extends State<Accounts> {
+  String? first_name;
+  String? last_name;
+
+  final LoginController loginController = Get.put(LoginController());
+
+
+  void getShared() async {
+    var a = await SharedPrefs.readSingleString('first_name');
+    var b = await SharedPrefs.readSingleString('last_name');
+    setState(() {
+      first_name = a;
+      last_name = b;
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    getShared();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -95,25 +120,25 @@ class _AccountsState extends State<Accounts> {
                                             scale: 0.092),
                                       ),
                                       Text(
-                                        "Helen Chinweike",
+                                        "${first_name} ${last_name}",
                                         style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontFamily: 'Montserrat Bold',
-                                          fontSize: 16,
+                                          fontSize: 15,
                                         ),
                                       ),
                                       SizedBox(
                                         height: DeviceUtils.getScaledHeight(context,
                                             scale: 0.01),
                                       ),
-                                      Text(
-                                        "Lagos state, Nigeria",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: 'Montserrat Regular',
-                                          fontSize: 14,
-                                        ),
-                                      ),
+                                      // Text(
+                                      //   "Lagos state, Nigeria",
+                                      //   style: TextStyle(
+                                      //     fontWeight: FontWeight.w400,
+                                      //     fontFamily: 'Montserrat Regular',
+                                      //     fontSize: 14,
+                                      //   ),
+                                      // ),
                                       SizedBox(
                                         height: DeviceUtils.getScaledHeight(context,
                                             scale: 0.01),
@@ -245,7 +270,8 @@ class _AccountsState extends State<Accounts> {
                                             scale: 0.02),
                                       ),
                                       GestureDetector(
-                                        onTap: (){
+                                        onTap: () async {
+                                          if(await loginController.logout())
                                           Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
                                         },
                                         child: Row(

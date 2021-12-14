@@ -1,6 +1,6 @@
 import 'package:dot_safety/app/components/card_description.dart';
 import 'package:dot_safety/app/components/image-card.dart';
-import 'package:dot_safety/app/ui/pages/dashboard/alert_screen.dart';
+import 'package:dot_safety/app/ui/pages/notification/alert_screen.dart';
 import 'package:dot_safety/app/ui/pages/dashboard/selectLawEnforcement.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_safety/app/utils/responsive_safe_area.dart';
@@ -18,7 +18,6 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   int? selectedIndex;
-
   List<String> litems = ["Traffic Offence", "Accident", "Kidnap"];
 
   updateState(index) {
@@ -263,7 +262,7 @@ showAlertDialog(BuildContext context, litems, selectedIndex, updateState) {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              AlertScreen(alert: "Traffic Offence")));
+                              AlertScreen(alert: "Traffic Offence", time: '', description: '',)));
                 },
               ),
               ListTile(
@@ -282,7 +281,7 @@ showAlertDialog(BuildContext context, litems, selectedIndex, updateState) {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              AlertScreen(alert: "Accident")));
+                              AlertScreen(alert: "Accident",  time: '', description: '')));
                 },
               ),
               ListTile(
@@ -300,7 +299,7 @@ showAlertDialog(BuildContext context, litems, selectedIndex, updateState) {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => AlertScreen(alert: "Kidnap")));
+                          builder: (context) => AlertScreen(alert: "Kidnap",  time: '', description: '')));
                 },
               )
             ],

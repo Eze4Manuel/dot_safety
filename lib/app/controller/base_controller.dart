@@ -2,9 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:dot_safety/app/utils/shared_prefs.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:http/http.dart' as http;
@@ -17,13 +15,12 @@ class BaseController extends GetxController {
 
   setMessage(msg){
     message.value = msg;
-    print(message.value);
   }
 
   //------------ Stores data locally using Shared prefs ------------//
   Future<bool> storeUserDetails(body, listKeys) async {
     await listKeys.map((key) async =>
-    await SharedPrefs.saveString(key, jsonEncode(body[key]))
+    await SharedPrefs.saveString(key, body[key])
     );
     return true;
   }
@@ -31,7 +28,6 @@ class BaseController extends GetxController {
   sendHttpRequest( url, data) async {
     // unsetting messages
     setMessage('');
-
     try {
       print("processing");
       var response =
@@ -42,16 +38,19 @@ class BaseController extends GetxController {
       print('Response status: ${response.statusCode}');
       print('Response body: ${jsonDecode(response.body)}');
 
-      if(jsonDecode(response.body)['status'] == 'success') return data;
+      if(jsonDecode(response.body)['status'] == 'success') return jsonDecode(response.body)['data'];
       else{
         setMessage(jsonDecode(response.body)['msg']);
         return Future<bool>.value(false);
       }
-
     }catch(e){
       print(e);
       setMessage("Something went wrong");
       return Future<bool>.value(false);
     }
   }
+
+
+
+
 }

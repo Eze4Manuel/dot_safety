@@ -41,7 +41,6 @@ class _LoginState extends State<Login> {
               bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
             child: Container(
-                // height: DeviceUtils.getScaledHeight(context, scale: 1),
                 width: DeviceUtils.getScaledWidth(context, scale: 1),
                 color: AppColors.whiteColor,
                 child: SingleChildScrollView(
@@ -80,7 +79,17 @@ class _LoginState extends State<Login> {
                             ],
                           ),
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Text(
+                                'Email',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 13,
+                                    fontFamily: 'Montserrat Regular',
+                                    color: AppColors.color10),
+                                textAlign: TextAlign.center,
+                              ),
                               TextFormField(
                                   style: TextStyle(
                                     fontSize: 14.0,
@@ -102,6 +111,15 @@ class _LoginState extends State<Login> {
                               ),
                               SizedBox(
                                 height: DeviceUtils.getScaledHeight(context, scale: 0.04),
+                              ),
+                              Text(
+                                'Password',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 13,
+                                    fontFamily: 'Montserrat Regular',
+                                    color: AppColors.color10),
+                                textAlign: TextAlign.center,
                               ),
                               TextFormField(
                                 style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14,
@@ -138,7 +156,7 @@ class _LoginState extends State<Login> {
                                               builder: (context) => EmailVerify()));
                                     },
                                     child: Text(
-                                      Strings.verifyEmailSmall,
+                                      'Resend Verification',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 13,
@@ -186,7 +204,7 @@ class _LoginState extends State<Login> {
                                   ),
                                   onPressed: () async {
                                     if(_formKey.currentState!.validate()){
-                                      if (await loginController
+                                      if ( await loginController
                                           .loginUserAccount( email, password)) {
                                         toast(loginController.message.value);
                                         _btnController.reset();
@@ -201,17 +219,19 @@ class _LoginState extends State<Login> {
                                       }
                                     }else _btnController.reset();
                                   }),
-
                               SizedBox(
                                 height: DeviceUtils.getScaledHeight(context, scale: 0.06),
                               ),
-                              Text(
-                                Strings.orLoginWith,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 13,
-                                    fontFamily: 'Montserrat Regular'),
-                                textAlign: TextAlign.center,
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  Strings.orLoginWith,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 13,
+                                      fontFamily: 'Montserrat Regular'),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                               SizedBox(
                                 height: DeviceUtils.getScaledHeight(context, scale: 0.02),

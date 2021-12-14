@@ -1,5 +1,6 @@
-import 'package:dot_safety/app/ui/pages/dashboard/alert_screen.dart';
+import 'package:dot_safety/app/ui/pages/notification/alert_screen.dart';
 import 'package:dot_safety/app/ui/pages/dashboard/selectLawEnforcement.dart';
+import 'package:dot_safety/app/utils/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_safety/app/utils/responsive_safe_area.dart';
 import 'package:dot_safety/app/utils/device_utils.dart';
@@ -15,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int? selectedIndex;
+  String? firstName;
 
   List<String> litems = ["Traffic Offence", "Accident", "Kidnap"];
 
@@ -22,6 +24,19 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       selectedIndex = index;
     });
+  }
+
+  void getShared() async {
+    var a = await SharedPrefs.readSingleString('first_name');
+    setState(() {
+      firstName = a;
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    getShared();
   }
 
   @override
@@ -64,14 +79,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   },
                                   child: Align(
                                     alignment: Alignment.centerRight,
-                                    child: Image.asset(
-                                      'assets/images/logo.png',
-                                      width: DeviceUtils.getScaledWidth(context,
-                                          scale: 0.078),
-                                      height: DeviceUtils.getScaledHeight(
-                                          context,
-                                          scale: 0.091),
-                                      fit: BoxFit.contain,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(100.0),
+                                      child: Image.asset(
+                                        'assets/images/human-back.png',
+                                        width: 50,
+                                        height: 50,
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -80,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       scale: 0.05),
                                 ),
                                 Text(
-                                  'Hi, Helen!',
+                                  'Hi, ${firstName}!',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
@@ -282,11 +297,7 @@ showAlertDialog(BuildContext context, litems, selectedIndex, updateState) {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              AlertScreen(alert: "Traffic Offence")));
+                  Navigator.pop(context);
                 },
               ),
               ListTile(
@@ -301,11 +312,7 @@ showAlertDialog(BuildContext context, litems, selectedIndex, updateState) {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              AlertScreen(alert: "Accident")));
+                  Navigator.pop(context);
                 },
               ),
               ListTile(
@@ -320,10 +327,7 @@ showAlertDialog(BuildContext context, litems, selectedIndex, updateState) {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AlertScreen(alert: "Kidnap")));
+                  Navigator.pop(context);
                 },
               )
             ],

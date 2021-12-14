@@ -50,18 +50,22 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     child: Form(
                       key: _formKey,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
                             height: DeviceUtils.getScaledHeight(context,
                                 scale: 0.11),
                           ),
-                          Image.asset(
-                            'assets/images/logo.png',
-                            width:
-                                DeviceUtils.getScaledWidth(context, scale: 0.2),
-                            height: DeviceUtils.getScaledHeight(context,
-                                scale: 0.2),
-                            fit: BoxFit.contain,
+                          Align(
+                            alignment: Alignment.center,
+                            child: Image.asset(
+                              'assets/images/logo.png',
+                              width:
+                                  DeviceUtils.getScaledWidth(context, scale: 0.2),
+                              height: DeviceUtils.getScaledHeight(context,
+                                  scale: 0.2),
+                              fit: BoxFit.contain,
+                            ),
                           ),
                           SizedBox(
                             height: DeviceUtils.getScaledHeight(context,
@@ -95,6 +99,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           SizedBox(
                             height: DeviceUtils.getScaledHeight(context,
                                 scale: 0.06),
+                          ),
+                          Text(
+                            'Email',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
+                            textAlign: TextAlign.center,
                           ),
                           TextFormField(
                             style: GoogleFonts.montserrat(
@@ -143,7 +156,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                       .forgottenPassword(email)) {
                                     toast(loginController.message.value);
                                     _btnController.reset();
-                                    Navigator.pushReplacement(
+                                    Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>

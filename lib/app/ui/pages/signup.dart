@@ -11,6 +11,7 @@ import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:intl/intl.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -23,9 +24,14 @@ class _SignupState extends State<Signup> {
   final SignUpController signUpController = Get.put(SignUpController());
 
   Account account = Account();
+  String confirm_password = '';
+  String confirm_password_error = '';
 
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
+
+  TextEditingController dateCtl = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,35 +46,41 @@ class _SignupState extends State<Signup> {
               height: DeviceUtils.getScaledHeight(context, scale: 1),
               child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: DeviceUtils.getScaledHeight(context,
-                              scale: 0.08),
-                        ),
-                        Center(
-                          child: Text(
-                            Strings.signUpToDotSafety,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18,
-                                fontFamily: 'Montserrat Bold',
-                                color: AppColors.appPrimaryColor),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        SizedBox(
-                          height: DeviceUtils.getScaledHeight(context,
-                              scale: 0.03),
-                        ),
-                      ],
-                    ),
                     Form(
                       key: _formKey,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          SizedBox(
+                            height: DeviceUtils.getScaledHeight(context,
+                                scale: 0.08),
+                          ),
+                          Center(
+                            child: Text(
+                              Strings.signUpToDotSafety,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18,
+                                  fontFamily: 'Montserrat Bold',
+                                  color: AppColors.appPrimaryColor),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          SizedBox(
+                            height: DeviceUtils.getScaledHeight(context,
+                                scale: 0.03),
+                          ),
+                          Text(
+                            'First Name',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
+                            textAlign: TextAlign.center,
+                          ),
                           TextFormField(
                             style: TextStyle(
                               fontSize: 14.0,
@@ -92,6 +104,15 @@ class _SignupState extends State<Signup> {
                             height: DeviceUtils.getScaledHeight(context,
                                 scale: 0.02),
                           ),
+                          Text(
+                            'Last Name',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
+                            textAlign: TextAlign.center,
+                          ),
                           TextFormField(
                             style: TextStyle(
                               fontSize: 14.0,
@@ -114,6 +135,15 @@ class _SignupState extends State<Signup> {
                           SizedBox(
                             height: DeviceUtils.getScaledHeight(context,
                                 scale: 0.02),
+                          ),
+                          Text(
+                            'Email',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
+                            textAlign: TextAlign.center,
                           ),
                           TextFormField(
                             style: TextStyle(
@@ -140,10 +170,23 @@ class _SignupState extends State<Signup> {
                             height: DeviceUtils.getScaledHeight(context,
                                 scale: 0.02),
                           ),
+                          Text(
+                            'Date of Birth',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
+                            textAlign: TextAlign.center,
+                          ),
                           TextFormField(
+                            controller: dateCtl,
                             style: TextStyle(
                               fontSize: 14.0,
                             ),
+                            onSaved: (value) {
+                              print(value);
+                            },
                             decoration: InputDecorationValues(
                                 hintText: "Date Of Birth",
                                 prefixIcon: Icons.date_range_outlined),
@@ -152,15 +195,29 @@ class _SignupState extends State<Signup> {
                                 return 'Please Select a DOB';
                               }
                             },
-                            onChanged: (val) {
-                              setState(() {
-                                account.dob = val;
-                              });
-                            },
+                            onTap: () async{
+                              DateTime date = DateTime(1900);
+                              FocusScope.of(context).requestFocus(new FocusNode());
+                              date = (await showDatePicker(
+                                  context: context,
+                                  initialDate:DateTime.now(),
+                                  firstDate:DateTime(1900),
+                                  lastDate: DateTime(2100)))!;
+                              account.dob = DateFormat('yyyy-MM-dd').format(date);
+                              dateCtl.text = DateFormat('yyyy-MM-dd').format(date);},
                           ),
                           SizedBox(
                             height: DeviceUtils.getScaledHeight(context,
                                 scale: 0.02),
+                          ),
+                          Text(
+                            'Phone Number ( 11 digit number )',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
+                            textAlign: TextAlign.center,
                           ),
                           TextFormField(
                             style: TextStyle(
@@ -186,15 +243,27 @@ class _SignupState extends State<Signup> {
                             height: DeviceUtils.getScaledHeight(context,
                                 scale: 0.02),
                           ),
+                          Text(
+                            'Family Contact Number',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
+                            textAlign: TextAlign.center,
+                          ),
                           TextFormField(
                             style: TextStyle(
                               fontSize: 13.0,
                             ),
                             decoration: InputDecorationValues(
-                                hintText: "Family Contact (Seperate numbers with comma(,) ",
+                                hintText: "Family Contact ",
                                 prefixIcon: Icons.perm_identity),
                             validator: (value) {
-
+                              if (value != null ) {
+                                if(value.length < 11 || value.length > 11 )
+                                  return 'Incorrect Phone Number';
+                              }
                             },
                             onChanged: (val) {
                               setState(() {
@@ -205,6 +274,15 @@ class _SignupState extends State<Signup> {
                           SizedBox(
                             height: DeviceUtils.getScaledHeight(context,
                                 scale: 0.02),
+                          ),
+                          Text(
+                            'Password ( Must be at least 6 characters )',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
+                            textAlign: TextAlign.center,
                           ),
                           TextFormField(
                             style: TextStyle(
@@ -229,6 +307,49 @@ class _SignupState extends State<Signup> {
                           ),
                           SizedBox(
                             height: DeviceUtils.getScaledHeight(context,
+                                scale: 0.02),
+                          ),
+                          Text(
+                            'Confirm Password',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
+                            textAlign: TextAlign.center,
+                          ),
+                          TextFormField(
+                            style: TextStyle(
+                              fontSize: 13.0,
+                            ),
+                            decoration: InputDecorationValues(
+                                hintText: "********",
+                                prefixIcon: Icons.lock_outlined),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please Enter Password';
+                              }
+                              if(value.length < 6 ){
+                                return "Password Must Be At Least 6 Characters";
+                              }
+                            },
+                            onChanged: (val) {
+                              setState(() {
+                                confirm_password = val;
+                              });
+                            },
+                          ),
+                          Text(
+                            confirm_password_error,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                fontFamily: 'Montserrat Regular',
+                                color: Colors.red),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(
+                            height: DeviceUtils.getScaledHeight(context,
                                 scale: 0.06),
                           ),
                           RoundedLoadingButton(
@@ -250,17 +371,28 @@ class _SignupState extends State<Signup> {
                             ),
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                if (await signUpController
-                                    .signUpUsers(account)) {
-                                  toast(signUpController.message.value);
-                                  _btnController.reset();
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              EmailVerify( receivedEmail: account.email )));
+                                print(account.dob);
+                                if(account.password == confirm_password){
+                                  setState(() {
+                                    confirm_password_error = "";
+                                  });
+                                  if (await signUpController
+                                      .signUpUsers(account)) {
+                                    toast(signUpController.message.value);
+                                    _btnController.reset();
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Login()));
+                                  } else {
+                                    toast(signUpController.message.value);
+                                    _btnController.reset();
+                                  }
                                 } else {
-                                  toast(signUpController.message.value);
+                                    setState(() {
+                                      confirm_password_error = "Password Mismatch";
+                                    });
                                   _btnController.reset();
                                 }
                               } else
@@ -300,11 +432,16 @@ class _SignupState extends State<Signup> {
                                 )
                               ])),
                         ),
+                        SizedBox(
+                          height: DeviceUtils.getScaledHeight(context,
+                              scale: 0.04),
+                        ),
                       ],
                     )
                   ],
                 ),
               ));
-        }));
+        })
+    );
   }
 }

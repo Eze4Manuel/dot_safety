@@ -3,20 +3,20 @@ import 'dart:convert';
 import 'package:dot_safety/app/controller/base_controller.dart';
 import 'package:dot_safety/app/model/account.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
+import 'package:dot_safety/app/utils/shared_prefs.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends BaseController {
   RxBool loading = false.obs;
 
   Future<bool> loginUserAccount(String? email, String? password) async {
     dynamic data;
-    var url = Uri.parse('${Strings.domain}api/user/login_user');
-    List user_keys = ['_id', 'token', 'email'];
+    final prefs = await SharedPreferences.getInstance();
 
-    data = {
-      "email": email,
-      "password": password
-    };
+    var url = Uri.parse('${Strings.domain}api/user/login_user');
+
+    data = {"email": email, "password": password};
 
     print(url);
 
@@ -25,16 +25,19 @@ class LoginController extends BaseController {
     if (result == false) {
       return result;
     } else {
-      if (await storeUserDetails(result, user_keys)) {
-        setMessage("Login Success");
-        return Future<bool>.value(true);
-      }
+      prefs.setString('_id', result['_id']);
+      prefs.setString('token', result['token']);
+      prefs.setString('email', result['email']);
+      prefs.setString('first_name', result['first_name']);
+      prefs.setString('last_name', result['last_name']);
+
+      setMessage("Login Success");
+      return Future<bool>.value(true);
     }
     return false;
   }
 
   Future<bool> forgottenPassword(String? email) async {
-
     dynamic data;
     var url = Uri.parse('${Strings.domain}api/user/forgot_password');
 
@@ -56,11 +59,7 @@ class LoginController extends BaseController {
     dynamic data;
     var url = Uri.parse('${Strings.domain}api/user/reset_password');
 
-    data = {
-      'newPassword': newPassword,
-      'email': email,
-      'passcode': passcode
-    };
+    data = {'newPassword': newPassword, 'email': email, 'passcode': passcode};
 
     print(data);
 
@@ -79,9 +78,7 @@ class LoginController extends BaseController {
     dynamic data;
     var url = Uri.parse('${Strings.domain}api/user/resend_verification');
 
-    data = {
-      'email': email
-    };
+    data = {'email': email};
 
     print(url);
     print(data);
@@ -91,11 +88,20 @@ class LoginController extends BaseController {
     if (result == false) {
       return result;
     } else {
-        setMessage("Email Sent to Mail");
+      setMessage("Email Sent to Mail");
 
-        return Future<bool>.value(true);
-
+      return Future<bool>.value(true);
     }
     return false;
+  }
+
+  Future<bool> logout() async {
+    await SharedPrefs.remove('_id');
+    await SharedPrefs.remove('token');
+    await SharedPrefs.remove('email');
+    await SharedPrefs.remove('first_name');
+    await SharedPrefs.remove('last_name');
+
+    return true;
   }
 }

@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:dot_safety/app/utils/responsive_safe_area.dart';
 import 'package:dot_safety/app/utils/device_utils.dart';
 import 'package:dot_safety/app/ui/theme/app_colors.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AlertScreen extends StatefulWidget {
   String alert;
+  String time;
+  String description;
 
-  AlertScreen({required this.alert});
+  AlertScreen({required this.alert, required this.time, required this.description});
 
   @override
   _AlertScreenState createState() => _AlertScreenState();
@@ -129,7 +130,7 @@ class _AlertScreenState extends State<AlertScreen> {
                                 scale: 0.04),
                           ),
                           Text(
-                            'Time',
+                            widget.time,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,

@@ -25,15 +25,6 @@ class _ProfileState extends State<Profile> {
             child: AppBar(
               automaticallyImplyLeading: false,
               elevation: 0,
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Padding(
-                  padding: const EdgeInsets.only(top: 0),
-                  child: Icon(Icons.arrow_back),
-                ),
-              ),
               backgroundColor: AppColors.secondaryColor,
               flexibleSpace: Align(
                 alignment: Alignment.center,
@@ -60,6 +51,7 @@ class _ProfileState extends State<Profile> {
               ),
               bottom: const TabBar(
                 indicatorWeight: 1,
+                isScrollable: true,
                 unselectedLabelColor: AppColors.whiteColor,
                 unselectedLabelStyle: TextStyle(
                     fontWeight: FontWeight.w600,
@@ -80,7 +72,7 @@ class _ProfileState extends State<Profile> {
                       child: Text("Profile",
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontSize: 16,
+                            fontSize: 15,
                             fontFamily: 'Montserrat Regular',
                           )
                       )
@@ -89,7 +81,7 @@ class _ProfileState extends State<Profile> {
                       child: Text("Offence",
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontSize: 16,
+                            fontSize: 15,
                             fontFamily: 'Montserrat Regular',
 
                           ))
@@ -98,7 +90,7 @@ class _ProfileState extends State<Profile> {
                       child: Text("Tickets",
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontSize: 16,
+                            fontSize: 15,
                             fontFamily: 'Montserrat Regular',
                           ))
                   ),
@@ -106,7 +98,7 @@ class _ProfileState extends State<Profile> {
                       child: Text("Saved",
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontSize: 16,
+                              fontSize: 15,
                               fontFamily: 'Montserrat Regular'
                           ))
                   ),

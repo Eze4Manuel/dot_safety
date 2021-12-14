@@ -13,7 +13,6 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
 
-
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
@@ -36,6 +35,8 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
         backgroundColor: AppColors.whiteColor,
         bottomNavigationBar: BottomNavigationBar(
@@ -51,49 +52,47 @@ class _DashboardState extends State<Dashboard> {
           items: [
             BottomNavigationBarItem(
               icon: new Icon(Icons.home,),
-              title: new Text('Home',
+              title: new Text('',
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontFamily: 'Montserrat Regular',
-                  fontSize: 14.0,
+                  fontSize: 0.0,
                 ),),
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.search,),
-              title: new Text('Search',
+              title: new Text('',
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontFamily: 'Montserrat Regular',
-                  fontSize: 14.0,
+                  fontSize: 0.0,
                 ),),
             ),
-
             BottomNavigationBarItem(
               icon: new Icon(Icons.document_scanner,),
-              title: new Text('Orders',
+              title: new Text('',
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontFamily: 'Montserrat Regular',
-
-                  fontSize: 14.0,
+                  fontSize: 0.0,
                 ),),
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.notifications_active,),
-                title: Text('Messages',
+                title: Text('',
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontFamily: 'Montserrat Regular',
-                    fontSize: 14.0,
+                    fontSize: 0.0,
                   ),)
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person),
-                title: Text('Profile',
+                title: Text('',
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontFamily: 'Montserrat Regular',
-                    fontSize: 14.0,
+                    fontSize: 0.0,
                   ),)
             ),
           ],

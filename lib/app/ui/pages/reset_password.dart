@@ -102,12 +102,21 @@ class _ResetPasswordState extends State<ResetPassword> {
                               SizedBox(
                                 height: DeviceUtils.getScaledHeight(context, scale: 0.06),
                               ),
+                              Text(
+                                'Passcode From Mail',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 13,
+                                    fontFamily: 'Montserrat Regular',
+                                    color: AppColors.color10),
+                                textAlign: TextAlign.center,
+                              ),
                               TextFormField(
                                   style: GoogleFonts.montserrat(
                                       textStyle:
                                       TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
                                   decoration: InputDecorationValues(
-                                  hintText: "Passcode from mail",
+                                  hintText: "Passcode From Mail",
                                   prefixIcon: Icons.mail_outline),
 
                                   onChanged: (val) {
@@ -117,6 +126,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                                   },),
                               SizedBox(
                                 height: DeviceUtils.getScaledHeight(context, scale: 0.04),
+                              ),
+                              Text(
+                                'Create New Password',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 13,
+                                    fontFamily: 'Montserrat Regular',
+                                    color: AppColors.color10),
+                                textAlign: TextAlign.center,
                               ),
                               TextFormField(
                                 style: GoogleFonts.montserrat(
@@ -142,12 +160,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                               SizedBox(
                                 height: DeviceUtils.getScaledHeight(context, scale: 0.025),
                               ),
+
                               Text(
-                                passwordError,
+                                'Confirm Password',
                                 style: TextStyle(
-                                  color: AppColors.color5,
-                                  fontFamily: 'Montserrat Regular'
-                                ),
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 13,
+                                    fontFamily: 'Montserrat Regular',
+                                    color: AppColors.color10),
+                                textAlign: TextAlign.center,
                               ),
                               TextFormField(
                                   style: GoogleFonts.montserrat(
@@ -170,6 +191,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                                     confirmPassword = val;
                                   });
                                 },
+                              ),
+                              Text(
+                                passwordError,
+                                style: TextStyle(
+                                    color: AppColors.color5,
+                                    fontFamily: 'Montserrat Regular'
+                                ),
                               ),
                               SizedBox(
                                 height: DeviceUtils.getScaledHeight(context, scale: 0.05),

@@ -91,7 +91,18 @@ class _EmailVerifyState extends State<EmailVerify> {
                           ),
                           Form(
                               key: _formKey,
-                              child: Column(children: [
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                Text(
+                                  'Email',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 13,
+                                      fontFamily: 'Montserrat Regular',
+                                      color: AppColors.color10),
+                                  textAlign: TextAlign.center,
+                                ),
                                 TextFormField(
                                   style: TextStyle(
                                     fontSize: 14.0,

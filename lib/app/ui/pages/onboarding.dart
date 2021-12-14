@@ -1,4 +1,5 @@
 import 'package:dot_safety/app/ui/pages/welcome.dart';
+import 'package:dot_safety/app/utils/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dot_safety/app/utils/responsive_safe_area.dart';
@@ -7,9 +8,17 @@ import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Onboarding extends StatelessWidget {
+class Onboarding extends StatefulWidget {
+  @override
+  State<Onboarding> createState() => _OnboardingState();
+}
+
+class _OnboardingState extends State<Onboarding> {
+
   @override
   Widget build(BuildContext context) {
+    print(SharedPrefs.readSingleString('email'));
+
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: ResponsiveSafeArea(
