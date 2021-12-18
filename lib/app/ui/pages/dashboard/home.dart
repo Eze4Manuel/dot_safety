@@ -1,11 +1,14 @@
-import 'package:dot_safety/app/ui/pages/notification/alert_screen.dart';
+import 'package:dot_safety/app/controller/dashboard_controller.dart';
 import 'package:dot_safety/app/ui/pages/dashboard/selectLawEnforcement.dart';
+import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:dot_safety/app/utils/shared_prefs.dart';
+import 'package:dot_safety/app/utils/temp_data.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_safety/app/utils/responsive_safe_area.dart';
 import 'package:dot_safety/app/utils/device_utils.dart';
 import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,9 +19,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int? selectedIndex;
-  String? firstName;
+  String? firstName = '';
+  String profileImage = 'https://img.icons8.com/emoji/96/000000/person.png';
 
   List<String> litems = ["Traffic Offence", "Accident", "Kidnap"];
+
+
+  final DashboardController dashboardController = Get.put(DashboardController());
 
   updateState(index) {
     setState(() {
@@ -28,8 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void getShared() async {
     var a = await SharedPrefs.readSingleString('first_name');
+    var c = await SharedPrefs.readSingleString('image_url');
     setState(() {
       firstName = a;
+      profileImage = '${Strings.domain}'+ c;
     });
   }
 
@@ -45,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppColors.whiteColor,
       drawer: Container(
         width: DeviceUtils.getScaledWidth(context, scale: 1),
-        child: Drawer(child: SelectLawEnforcement()),
+        child: Drawer(child: SelectLawEnforcement( lawEnforcementAgencies: dashboardController.lawEnforcementAgencies)),
       ),
       body: ResponsiveSafeArea(
         builder: (context, size) {
@@ -74,19 +83,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             Row(
                               children: [
                                 GestureDetector(
-                                  onTap: () {
-                                    Scaffold.of(context).openDrawer();
+                                  onTap: () async {
+                                    if(await dashboardController.getAgencyList()){
+                                      Scaffold.of(context).openDrawer();
+                                    }else{
+                                      toast(dashboardController.message.value);
+                                    }
                                   },
                                   child: Align(
                                     alignment: Alignment.centerRight,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(100.0),
-                                      child: Image.asset(
-                                        'assets/images/human-back.png',
-                                        width: 50,
-                                        height: 50,
+                                      child: Image.network(
+                                        '${profileImage}',
+                                        width: 50.0,
+                                        height: 50.0,
                                         fit: BoxFit.fill,
-                                      ),
+                                      )
                                     ),
                                   ),
                                 ),
@@ -95,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       scale: 0.05),
                                 ),
                                 Text(
-                                  'Hi, ${firstName}!',
+                                  'Hi, ${firstName}!'.substring(0, firstName!.length + 5),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,

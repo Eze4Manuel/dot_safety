@@ -1,5 +1,6 @@
 import 'package:dot_safety/app/components/card_description.dart';
 import 'package:dot_safety/app/components/image-card.dart';
+import 'package:dot_safety/app/controller/dashboard_controller.dart';
 import 'package:dot_safety/app/ui/pages/notification/alert_screen.dart';
 import 'package:dot_safety/app/ui/pages/dashboard/selectLawEnforcement.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:dot_safety/app/utils/device_utils.dart';
 import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -19,6 +21,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   int? selectedIndex;
   List<String> litems = ["Traffic Offence", "Accident", "Kidnap"];
+  final DashboardController dashboardController = Get.put(DashboardController());
 
   updateState(index) {
     setState(() {
@@ -32,7 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
       backgroundColor: AppColors.whiteColor,
       drawer: Container(
         width: DeviceUtils.getScaledWidth(context, scale: 1),
-        child: Drawer(child: SelectLawEnforcement()),
+        child: Drawer(child: SelectLawEnforcement( lawEnforcementAgencies: dashboardController.lawEnforcementAgencies)),
       ),
       body: ResponsiveSafeArea(
         builder: (context, size) {

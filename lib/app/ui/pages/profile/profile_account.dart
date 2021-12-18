@@ -1,5 +1,10 @@
+import 'dart:io';
 import 'dart:ui';
 
+import 'package:dot_safety/app/controller/profile_controller.dart';
+import 'package:dot_safety/app/ui/theme/app_strings.dart';
+import 'package:dot_safety/app/utils/temp_data.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:dot_safety/app/controller/login_controller.dart';
 import 'package:dot_safety/app/ui/pages/login.dart';
 import 'package:dot_safety/app/ui/pages/profile/settings.dart';
@@ -8,6 +13,8 @@ import 'package:dot_safety/app/utils/device_utils.dart';
 import 'package:dot_safety/app/utils/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+enum ImageSourceType { gallery, camera }
 
 class Accounts extends StatefulWidget {
   const Accounts({Key? key}) : super(key: key);
@@ -19,25 +26,54 @@ class Accounts extends StatefulWidget {
 class _AccountsState extends State<Accounts> {
   String? first_name;
   String? last_name;
+  String? profileImage = 'https://img.icons8.com/emoji/96/000000/person.png';
+
+  var _image;
+  var imagePicker;
+  var type;
 
   final LoginController loginController = Get.put(LoginController());
+  final ProfileController profileController = Get.put(ProfileController());
 
-
+  // getting stored shared prefs
   void getShared() async {
     var a = await SharedPrefs.readSingleString('first_name');
     var b = await SharedPrefs.readSingleString('last_name');
+    var c = await SharedPrefs.readSingleString('image_url') ?? profileImage;
     setState(() {
       first_name = a;
       last_name = b;
+      profileImage = '${Strings.domain}${c}';
     });
   }
 
-  @override
-  void initState(){
-    super.initState();
-    getShared();
+  // getting image stored
+  getImage(type) async {
+    var source = type == ImageSourceType.camera
+        ? ImageSource.camera
+        : ImageSource.gallery;
+    XFile image = await imagePicker.pickImage(
+        source: source,
+        imageQuality: 50,
+        preferredCameraDevice: CameraDevice.front);
+
+    if (await profileController.asyncFileUpload(
+        "Profile Image", File(image.path))) {
+      setState(() {
+        _image = File(image.path);
+      });
+      Navigator.pop(context);
+    } else {
+      toast(profileController.message.value);
+    }
   }
 
+  @override
+  void initState() {
+    super.initState();
+    getShared();
+    imagePicker = new ImagePicker();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,13 +96,27 @@ class _AccountsState extends State<Accounts> {
                           Expanded(
                             flex: 1,
                             child: ImageFiltered(
-                              imageFilter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/human-back.png"),
-                                          fit: BoxFit.cover))),
+                              imageFilter:
+                                  ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                              child: _image != null
+                                  ? Container(
+                                      child: Image.file(
+                                        _image,
+                                        width: DeviceUtils.getScaledWidth(
+                                            context,
+                                            scale: 1),
+                                        height: DeviceUtils.getScaledHeight(
+                                            context,
+                                            scale: 1),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                  : Container(
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image:
+                                                  NetworkImage(profileImage!),
+                                              fit: BoxFit.cover))),
                             ),
                           ),
                           Expanded(
@@ -92,31 +142,41 @@ class _AccountsState extends State<Accounts> {
                                     topLeft: Radius.circular(50),
                                     topRight: Radius.circular(50),
                                   ), // radius of 10
-                                  color:
-                                      AppColors.whiteColor // green as background color
+                                  color: AppColors
+                                      .whiteColor // green as background color
                                   ),
                               child: Stack(
                                 overflow: Overflow.visible,
                                 children: [
                                   Positioned(
-                                    top: DeviceUtils.getScaledHeight(context,scale: -0.05),
-                                    left: DeviceUtils.getScaledWidth(context,scale: 0.31),
+                                    top: DeviceUtils.getScaledHeight(context,
+                                        scale: -0.05),
+                                    left: DeviceUtils.getScaledWidth(context,
+                                        scale: 0.31),
                                     child: Center(
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(100.0),
-                                        child: Image.asset(
-                                          'assets/images/human.png',
-                                          width: 80.0,
-                                          height: 80.0,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
+                                          borderRadius:
+                                              BorderRadius.circular(100.0),
+                                          child: _image != null
+                                              ? Image.file(
+                                                  _image,
+                                                  width: 80.0,
+                                                  height: 80.0,
+                                                  fit: BoxFit.fill,
+                                                )
+                                              : Image.network(
+                                                  profileImage!,
+                                                  width: 80.0,
+                                                  height: 80.0,
+                                                  fit: BoxFit.fill,
+                                                )),
                                     ),
                                   ),
                                   Column(
                                     children: [
                                       SizedBox(
-                                        height: DeviceUtils.getScaledHeight(context,
+                                        height: DeviceUtils.getScaledHeight(
+                                            context,
                                             scale: 0.092),
                                       ),
                                       Text(
@@ -128,7 +188,8 @@ class _AccountsState extends State<Accounts> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: DeviceUtils.getScaledHeight(context,
+                                        height: DeviceUtils.getScaledHeight(
+                                            context,
                                             scale: 0.01),
                                       ),
                                       // Text(
@@ -140,7 +201,8 @@ class _AccountsState extends State<Accounts> {
                                       //   ),
                                       // ),
                                       SizedBox(
-                                        height: DeviceUtils.getScaledHeight(context,
+                                        height: DeviceUtils.getScaledHeight(
+                                            context,
                                             scale: 0.01),
                                       ),
                                       Row(
@@ -153,12 +215,15 @@ class _AccountsState extends State<Accounts> {
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(100)),
-                                            child: Text("Inbox",
+                                            child: Text(
+                                              "Inbox",
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w400,
-                                                fontFamily: 'Montserrat Regular',
+                                                fontFamily:
+                                                    'Montserrat Regular',
                                                 fontSize: 14,
-                                              ),),
+                                              ),
+                                            ),
                                           ),
                                           RaisedButton(
                                             onPressed: () {},
@@ -166,46 +231,68 @@ class _AccountsState extends State<Accounts> {
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(100)),
-                                            child: Text("Points",
+                                            child: Text(
+                                              "Points",
                                               style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: 'Montserrat Regular',
-                                                fontSize: 14,
-                                                color: AppColors.whiteColor
-                                              ),),
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily:
+                                                      'Montserrat Regular',
+                                                  fontSize: 14,
+                                                  color: AppColors.whiteColor),
+                                            ),
                                           ),
                                         ],
                                       ),
                                       SizedBox(
-                                        height: DeviceUtils.getScaledHeight(context,
+                                        height: DeviceUtils.getScaledHeight(
+                                            context,
                                             scale: 0.02),
                                       ),
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: DeviceUtils.getScaledWidth(
-                                                context,
-                                                scale: 0.05),
-                                          ),
-                                          Icon(
-                                            Icons.cloud_upload_rounded,
-                                            color: AppColors.appPrimaryColor,
-                                          ),
-                                          SizedBox(
-                                            width: DeviceUtils.getScaledWidth(
-                                                context,
-                                                scale: 0.04),
-                                          ),
-                                          Text('Upload an Image',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: 'Montserrat Regular',
-                                              fontSize: 14,
-                                            ),),
-                                        ],
+                                      GestureDetector(
+                                        onTap: () {
+                                          showModalBottomSheet(
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              context: context,
+                                              isScrollControlled: true,
+                                              isDismissible: true,
+                                              builder: (BuildContext context) {
+                                                return BottomImageSelect(
+                                                    context, getImage);
+                                              });
+                                          // _handleURLButtonPress(context, ImageSourceType.gallery);
+                                        },
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: DeviceUtils.getScaledWidth(
+                                                  context,
+                                                  scale: 0.05),
+                                            ),
+                                            Icon(
+                                              Icons.cloud_upload_rounded,
+                                              color: AppColors.appPrimaryColor,
+                                            ),
+                                            SizedBox(
+                                              width: DeviceUtils.getScaledWidth(
+                                                  context,
+                                                  scale: 0.04),
+                                            ),
+                                            Text(
+                                              'Upload an Image',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily:
+                                                    'Montserrat Regular',
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       SizedBox(
-                                        height: DeviceUtils.getScaledHeight(context,
+                                        height: DeviceUtils.getScaledHeight(
+                                            context,
                                             scale: 0.02),
                                       ),
                                       Row(
@@ -224,21 +311,28 @@ class _AccountsState extends State<Accounts> {
                                                 context,
                                                 scale: 0.04),
                                           ),
-                                          Text('Payment',
+                                          Text(
+                                            'Payment',
                                             style: TextStyle(
                                               fontWeight: FontWeight.w400,
                                               fontFamily: 'Montserrat Regular',
                                               fontSize: 14,
-                                            ),),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       SizedBox(
-                                        height: DeviceUtils.getScaledHeight(context,
+                                        height: DeviceUtils.getScaledHeight(
+                                            context,
                                             scale: 0.02),
                                       ),
                                       GestureDetector(
-                                        onTap: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsView()));
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      SettingsView()));
                                         },
                                         child: Row(
                                           children: [
@@ -256,23 +350,33 @@ class _AccountsState extends State<Accounts> {
                                                   context,
                                                   scale: 0.04),
                                             ),
-                                            Text('Setting',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: 'Montserrat Regular',
-                                                fontSize: 14,
-                                              ),),
+                                            Expanded(
+                                              child: Text(
+                                                'Setting',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily:
+                                                      'Montserrat Regular',
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
                                       SizedBox(
-                                        height: DeviceUtils.getScaledHeight(context,
+                                        height: DeviceUtils.getScaledHeight(
+                                            context,
                                             scale: 0.02),
                                       ),
                                       GestureDetector(
                                         onTap: () async {
-                                          if(await loginController.logout())
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                                          if (await loginController.logout())
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Login()));
                                         },
                                         child: Row(
                                           children: [
@@ -290,18 +394,21 @@ class _AccountsState extends State<Accounts> {
                                                   context,
                                                   scale: 0.04),
                                             ),
-                                            Text('Logout',
+                                            Text(
+                                              'Logout',
                                               style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: 'Montserrat Regular',
-                                                fontSize: 14,
-                                                color: AppColors.color5
-                                              ),),
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily:
+                                                      'Montserrat Regular',
+                                                  fontSize: 14,
+                                                  color: AppColors.color5),
+                                            ),
                                           ],
                                         ),
                                       ),
                                       SizedBox(
-                                        height: DeviceUtils.getScaledHeight(context,
+                                        height: DeviceUtils.getScaledHeight(
+                                            context,
                                             scale: 0.01),
                                       ),
                                     ],
@@ -316,6 +423,162 @@ class _AccountsState extends State<Accounts> {
                   ))),
         ),
       ],
+    );
+  }
+
+  Wrap BottomImageSelect(context, getImage) {
+    return Wrap(
+      alignment: WrapAlignment.center,
+      children: [
+        Container(
+          width: DeviceUtils.getScaledWidth(context, scale: 1),
+          decoration: new BoxDecoration(
+              color: AppColors.whiteColor,
+              borderRadius: new BorderRadius.only(
+                  topLeft: const Radius.circular(15.0),
+                  topRight: const Radius.circular(15.0))),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: DeviceUtils.getScaledHeight(context, scale: 0.02),
+              ),
+              Text(
+                'Select Image Source',
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Montserrat Bold',
+                  fontSize: 16,
+                ),
+              ),
+              SizedBox(
+                height: DeviceUtils.getScaledHeight(context, scale: 0.04),
+              ),
+              GestureDetector(
+                onTap: () {
+                  getImage(ImageSourceType.camera);
+                },
+                child: Container(
+                  width: DeviceUtils.getScaledWidth(context, scale: 1),
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                  child: Center(
+                    child: Text(
+                      'Camera',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Montserrat Bold',
+                          fontSize: 14,
+                          color: AppColors.color8),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: DeviceUtils.getScaledHeight(context, scale: 0.02),
+              ),
+              GestureDetector(
+                onTap: () {
+                  getImage(ImageSourceType.gallery);
+                },
+                child: Container(
+                  width: DeviceUtils.getScaledWidth(context, scale: 1),
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                  child: Center(
+                    child: Text(
+                      'Gallery',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Montserrat Bold',
+                          fontSize: 14,
+                          color: AppColors.color8),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: DeviceUtils.getScaledHeight(context, scale: 0.04),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ImageFromGalleryEx extends StatefulWidget {
+  final type;
+
+  ImageFromGalleryEx(this.type);
+
+  @override
+  ImageFromGalleryExState createState() => ImageFromGalleryExState(this.type);
+}
+
+class ImageFromGalleryExState extends State<ImageFromGalleryEx> {
+  var _image;
+  var imagePicker;
+  var type;
+
+  ImageFromGalleryExState(this.type);
+
+  @override
+  void initState() {
+    super.initState();
+    imagePicker = new ImagePicker();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: Text(type == ImageSourceType.camera
+              ? "Image from Camera"
+              : "Image from Gallery")),
+      body: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 52,
+          ),
+          Center(
+            child: GestureDetector(
+              onTap: () async {
+                var source = type == ImageSourceType.camera
+                    ? ImageSource.camera
+                    : ImageSource.gallery;
+                XFile image = await imagePicker.pickImage(
+                    source: source,
+                    imageQuality: 50,
+                    preferredCameraDevice: CameraDevice.front);
+                setState(() {
+                  _image = File(image.path);
+                });
+              },
+              child: Container(
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(color: Colors.red[200]),
+                child: _image != null
+                    ? Image.file(
+                        _image,
+                        width: 200.0,
+                        height: 200.0,
+                        fit: BoxFit.fitHeight,
+                      )
+                    : Container(
+                        decoration: BoxDecoration(color: Colors.red[200]),
+                        width: 200,
+                        height: 200,
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: Colors.grey[800],
+                        ),
+                      ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

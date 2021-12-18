@@ -17,7 +17,7 @@ class SignUpController extends BaseController {
     print(data);
 
     // Sending parameters to http request. Implemented in base controller
-    var result = await sendHttpRequest(url, data);
+    var result = await sendHttpRequest(url, data, 'post');
     if (result == false) {
       return result;
     } else {
@@ -34,7 +34,7 @@ class SignUpController extends BaseController {
     data = {'license': license};
 
     // Sending parameters to http request. Implemented in base controller
-    var result = await sendHttpRequest(url, data);
+    var result = await sendHttpRequest(url, data, 'post');
     if (result == false) {
       return result;
     } else {
@@ -57,7 +57,7 @@ class SignUpController extends BaseController {
     print(data);
 
     // Sending parameters to http request. Implemented in base controller
-    var result = await sendHttpRequest(url, data);
+    var result = await sendHttpRequest(url, data, 'post');
     if (result == false) {
       return result;
     } else {

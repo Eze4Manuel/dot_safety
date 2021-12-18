@@ -21,7 +21,7 @@ class LoginController extends BaseController {
     print(url);
 
     // Sending parameters to http request. Implemented in base controller
-    var result = await sendHttpRequest(url, data);
+    var result = await sendHttpRequest(url, data, 'post');
     if (result == false) {
       return result;
     } else {
@@ -30,6 +30,7 @@ class LoginController extends BaseController {
       prefs.setString('email', result['email']);
       prefs.setString('first_name', result['first_name']);
       prefs.setString('last_name', result['last_name']);
+      prefs.setString('image_url', result['image_url']);
 
       setMessage("Login Success");
       return Future<bool>.value(true);
@@ -45,7 +46,7 @@ class LoginController extends BaseController {
 
     print(data);
     // Sending parameters to http request. Implemented in base controller
-    var result = await sendHttpRequest(url, data);
+    var result = await sendHttpRequest(url, data, 'post');
     if (result == false) {
       return result;
     } else {
@@ -64,7 +65,7 @@ class LoginController extends BaseController {
     print(data);
 
     // Sending parameters to http request. Implemented in base controller
-    var result = await sendHttpRequest(url, data);
+    var result = await sendHttpRequest(url, data, 'post');
     if (result == false) {
       return result;
     } else {
@@ -84,7 +85,7 @@ class LoginController extends BaseController {
     print(data);
 
     // Sending parameters to http request. Implemented in base controller
-    var result = await sendHttpRequest(url, data);
+    var result = await sendHttpRequest(url, data, 'post');
     if (result == false) {
       return result;
     } else {

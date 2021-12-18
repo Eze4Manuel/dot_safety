@@ -25,16 +25,102 @@ class BaseController extends GetxController {
     return true;
   }
 
-  sendHttpRequest( url, data) async {
+  sendHttpRequest( url, data, httpMethod) async {
     // unsetting messages
     setMessage('');
     try {
       print("processing");
-      var response =
-      await http.post(
-          url,
-          headers: {"Accept": "*/*", "Content-Type": "application/json"},
-          body: jsonEncode(data));
+      var response;
+
+      switch(httpMethod){
+        case 'get':
+          response =
+          await http.get(
+              url,
+              headers: {"Accept": "*/*", "Content-Type": "application/json"});
+          break;
+
+        case 'put':
+          response =
+          await http.put(
+              url,
+              headers: {"Accept": "*/*", "Content-Type": "application/json"},
+              body: jsonEncode(data));
+          break;
+
+        default:
+          response =
+          await http.post(
+              url,
+              headers: {"Accept": "*/*", "Content-Type": "application/json"},
+              body: jsonEncode(data));
+      }
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${jsonDecode(response.body)}');
+
+      if(jsonDecode(response.body)['status'] == 'success') return jsonDecode(response.body)['data'];
+      else{
+        setMessage(jsonDecode(response.body)['msg']);
+
+        return Future<bool>.value(false);
+      }
+    }catch(e){
+      print(e);
+      setMessage("Something went wrong");
+      return Future<bool>.value(false);
+    }
+  }
+
+
+
+
+  sendAuthorizedHttpRequest( url, data, httpMethod) async {
+    // unsetting messages
+    setMessage('');
+    try {
+      print("processing");
+
+      var token = await SharedPrefs.readSingleString('token');
+      var response;
+
+      switch(httpMethod){
+        case 'get':
+          response =
+          await http.get(
+              url,
+              headers: {
+                "Accept": "*/*",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer ${token}"
+              });
+          print(response);
+
+          break;
+        case 'put':
+          response =
+          await http.put(
+              url,
+              headers: {
+                "Accept": "*/*",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer ${token}"
+              },
+              body: jsonEncode(data));
+          break;
+
+        default:
+           response =
+          await http.post(
+              url,
+              headers: {
+                "Accept": "*/*",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer ${token}"
+              },
+              body: jsonEncode(data));
+          break;
+      }
+
       print('Response status: ${response.statusCode}');
       print('Response body: ${jsonDecode(response.body)}');
 
@@ -49,7 +135,6 @@ class BaseController extends GetxController {
       return Future<bool>.value(false);
     }
   }
-
 
 
 

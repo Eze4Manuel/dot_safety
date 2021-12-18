@@ -8,10 +8,14 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-void main() {
+ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.setMockInitialValues({});
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  print(prefs.getString('email'));
+  var email = prefs.getString('email');
+
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
       .then((_) => runApp(
@@ -20,7 +24,7 @@ void main() {
     debugShowCheckedModeBanner: false,
     // routes: Routes.routes,
     home: Container(
-      child: Wrapper()
+      child: email == null ? Wrapper() : Onboarding()
     )
   )));
 }

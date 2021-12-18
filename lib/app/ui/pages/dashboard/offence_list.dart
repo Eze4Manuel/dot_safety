@@ -6,40 +6,63 @@ import 'package:dot_safety/app/utils/device_utils.dart';
 import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Offence extends StatelessWidget {
-  String offenceTitle;
+class Offense extends StatefulWidget {
+  var offenseId;
 
-  Offence({required this.offenceTitle});
+  Offense({required this.offenseId});
+
+  @override
+  State<Offense> createState() => _OffenseState();
+}
+
+class _OffenseState extends State<Offense> {
+
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(80.0),
           child: AppBar(
             automaticallyImplyLeading: false,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: Icon(Icons.arrow_back),
-              ),
-            ),
             backgroundColor: AppColors.secondaryColor,
             flexibleSpace: Align(
               alignment: Alignment.center,
-              child: Text(
-                offenceTitle,
-                style:
-                    TextStyle(
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Padding(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: Icon(Icons.arrow_back),
                     ),
-                textAlign: TextAlign.center,
-              ),
+                    color: AppColors.whiteColor,
+                  ),
+                  Expanded(
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      children: [
+                        Text(
+                          widget.offenseId['law_enforcement'],
+                          style:
+                          TextStyle(
+                            color: AppColors.whiteColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            fontFamily: 'Montserrat Bold'
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )
             ),
           )
       ),
@@ -53,7 +76,7 @@ class Offence extends StatelessWidget {
               // height: DeviceUtils.getScaledHeight(context, scale: 1),
                 width: DeviceUtils.getScaledWidth(context, scale: 1),
                 color: AppColors.whiteColor,
-                child: OffenseList()),
+                child: OffenseList(reviews: widget.offenseId['reviews'], offenseId: widget.offenseId['_id'],)),
           );
         },
         key: null,
@@ -64,7 +87,10 @@ class Offence extends StatelessWidget {
 
 
 class OffenseList extends StatefulWidget {
-  const OffenseList({Key? key}) : super(key: key);
+  var reviews;
+  var offenseId;
+
+  OffenseList({ this.reviews,  this.offenseId});
 
   @override
   _OffenseListState createState() => _OffenseListState();
@@ -115,15 +141,14 @@ class _OffenseListState extends State<OffenseList> {
                 ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: 5,
+                  itemCount: widget.reviews?.length,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: (){
                         Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => OffenceDetail()));
+                            context, MaterialPageRoute(builder: (context) => OffenceDetail(offense: widget.reviews[index], offenseId: widget.offenseId )));
                       },
-                      child: CardDescription(context, "Lexus", "venxs3345df venxs3345df venxs3345df  venxs3345df venxs3345df",
-                          'assets/images/img6.png', true),
+                      child: CardDescriptionReviews(context, widget.reviews[index]),
                     );
                   },
                 ),

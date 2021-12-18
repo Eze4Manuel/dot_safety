@@ -83,8 +83,10 @@ class _SignupState extends State<Signup> {
                           ),
                           TextFormField(
                             style: TextStyle(
-                              fontSize: 14.0,
-                            ),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
                             decoration: InputDecorationValues(
                                 hintText: "First Name",
                                 prefixIcon: Icons.person_outline),
@@ -115,8 +117,10 @@ class _SignupState extends State<Signup> {
                           ),
                           TextFormField(
                             style: TextStyle(
-                              fontSize: 14.0,
-                            ),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
                             decoration: InputDecorationValues(
                                 hintText: "Last Name",
                                 prefixIcon: Icons.person_outline),
@@ -147,8 +151,10 @@ class _SignupState extends State<Signup> {
                           ),
                           TextFormField(
                             style: TextStyle(
-                              fontSize: 14.0,
-                            ),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
                             decoration: InputDecorationValues(
                                 hintText: "Email address",
                                 prefixIcon: Icons.mail_outline),
@@ -182,8 +188,10 @@ class _SignupState extends State<Signup> {
                           TextFormField(
                             controller: dateCtl,
                             style: TextStyle(
-                              fontSize: 14.0,
-                            ),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
                             onSaved: (value) {
                               print(value);
                             },
@@ -221,8 +229,10 @@ class _SignupState extends State<Signup> {
                           ),
                           TextFormField(
                             style: TextStyle(
-                              fontSize: 14.0,
-                            ),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
                             decoration: InputDecorationValues(
                                 hintText: "Phone Number",
                                 prefixIcon: Icons.phone_outlined),
@@ -254,8 +264,10 @@ class _SignupState extends State<Signup> {
                           ),
                           TextFormField(
                             style: TextStyle(
-                              fontSize: 13.0,
-                            ),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
                             decoration: InputDecorationValues(
                                 hintText: "Family Contact ",
                                 prefixIcon: Icons.perm_identity),
@@ -286,8 +298,10 @@ class _SignupState extends State<Signup> {
                           ),
                           TextFormField(
                             style: TextStyle(
-                              fontSize: 13.0,
-                            ),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
                             decoration: InputDecorationValues(
                                 hintText: "********",
                                 prefixIcon: Icons.lock_outlined),
@@ -320,8 +334,10 @@ class _SignupState extends State<Signup> {
                           ),
                           TextFormField(
                             style: TextStyle(
-                              fontSize: 13.0,
-                            ),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
                             decoration: InputDecorationValues(
                                 hintText: "********",
                                 prefixIcon: Icons.lock_outlined),
