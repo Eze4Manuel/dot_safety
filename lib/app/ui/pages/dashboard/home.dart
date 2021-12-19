@@ -38,7 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
     var c = await SharedPrefs.readSingleString('image_url');
     setState(() {
       firstName = a;
-      profileImage = '${Strings.domain}'+ c;
+      if(c != null && c.length > 0){
+        profileImage = '${Strings.domain}'+ c;
+
+      }
     });
   }
 
@@ -50,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(profileImage);
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       drawer: Container(

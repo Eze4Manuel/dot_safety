@@ -43,6 +43,8 @@ class _AccountsState extends State<Accounts> {
     setState(() {
       first_name = a;
       last_name = b;
+      print(c);
+      if(c != null && c.length > 0)
       profileImage = '${Strings.domain}${c}';
     });
   }

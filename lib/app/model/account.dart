@@ -6,6 +6,9 @@ class Account {
   String? last_name;
   String? email;
   String? phone_number;
+  String? state_of_residence;
+  String? lga_of_residence;
+  String? address;
   String? contact;
   String? dob;
   String? password;
@@ -16,6 +19,9 @@ class Account {
         this.last_name,
         this.email,
         this.phone_number,
+        this.state_of_residence,
+        this.lga_of_residence,
+        this.address,
         this.contact,
         this.dob,
          this.password});
@@ -25,10 +31,14 @@ class Account {
     last_name = json['last_name'];
     email = json['email'];
     phone_number = json['phone_number'];
+    address = json['address'];
+    state_of_residence = json['state_of_residence'];
+    lga_of_residence = json['lga_of_residence'];
     contact = json['contact'];
     dob = json['dob'];
     password = json['password'];
   }
+
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, String>();
@@ -36,6 +46,9 @@ class Account {
     data['last_name'] = this.last_name ?? '';
     data['email'] = this.email ?? '';
     data['phone_number'] = this.phone_number ?? '';
+    data['state_of_residence'] = this.state_of_residence ?? '';
+    data['lga_of_residence'] = this.lga_of_residence ?? '';
+    data['address'] = this.address ?? '';
     data['contact'] = this.contact ?? '';
     data['dob'] = this.dob ?? '';
     data['password'] = this.password ?? '';

@@ -136,6 +136,7 @@ class _SettingsViewState extends State<SettingsView> {
                                     fontSize: 14),
                               ),
                               TextFormField(
+                                obscureText: true,
                                 style: TextStyle(
                                   fontSize: 14.0,
                                 ),
@@ -174,6 +175,7 @@ class _SettingsViewState extends State<SettingsView> {
                                     fontSize: 14),
                               ),
                               TextFormField(
+                                obscureText: true,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: 'Montserrat Regular',
@@ -215,6 +217,7 @@ class _SettingsViewState extends State<SettingsView> {
                                     fontSize: 14),
                               ),
                               TextFormField(
+                                obscureText: true,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: 'Montserrat Regular',

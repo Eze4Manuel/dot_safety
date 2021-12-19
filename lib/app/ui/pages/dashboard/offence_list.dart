@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dot_safety/app/components/card_description.dart';
 import 'package:dot_safety/app/ui/pages/dashboard/offence_detail.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +78,7 @@ class _OffenseState extends State<Offense> {
               // height: DeviceUtils.getScaledHeight(context, scale: 1),
                 width: DeviceUtils.getScaledWidth(context, scale: 1),
                 color: AppColors.whiteColor,
-                child: OffenseList(reviews: widget.offenseId['reviews'], offenseId: widget.offenseId['_id'],)),
+                child: OffenseList(reviews: jsonDecode(widget.offenseId['reviews']), offenseId: widget.offenseId['_id'],)),
           );
         },
         key: null,
@@ -97,9 +99,10 @@ class OffenseList extends StatefulWidget {
 }
 
 class _OffenseListState extends State<OffenseList> {
-
   @override
   Widget build(BuildContext context) {
+    print("widget.reviews");
+
     return Container(
       color: AppColors.color2,
       padding: EdgeInsets.symmetric(

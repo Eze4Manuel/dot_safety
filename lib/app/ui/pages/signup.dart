@@ -10,6 +10,7 @@ import 'package:dot_safety/app/utils/device_utils.dart';
 import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:intl/intl.dart';
 
@@ -27,11 +28,22 @@ class _SignupState extends State<Signup> {
   String confirm_password = '';
   String confirm_password_error = '';
 
+  var state_selected;
+  var lga_selected;
+
+  List dropdownValue = [];
+
+  late var lga;
+
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
 
   TextEditingController dateCtl = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +53,7 @@ class _SignupState extends State<Signup> {
           return Container(
               color: AppColors.whiteColor,
               padding: EdgeInsets.symmetric(
-                  horizontal:
-                      DeviceUtils.getScaledWidth(context, scale: 0.07)),
+                  horizontal: DeviceUtils.getScaledWidth(context, scale: 0.07)),
               height: DeviceUtils.getScaledHeight(context, scale: 1),
               child: SingleChildScrollView(
                 child: Column(
@@ -72,6 +83,7 @@ class _SignupState extends State<Signup> {
                             height: DeviceUtils.getScaledHeight(context,
                                 scale: 0.03),
                           ),
+
                           Text(
                             'First Name',
                             style: TextStyle(
@@ -203,16 +215,20 @@ class _SignupState extends State<Signup> {
                                 return 'Please Select a DOB';
                               }
                             },
-                            onTap: () async{
+                            onTap: () async {
                               DateTime date = DateTime(1900);
-                              FocusScope.of(context).requestFocus(new FocusNode());
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
                               date = (await showDatePicker(
                                   context: context,
-                                  initialDate:DateTime.now(),
-                                  firstDate:DateTime(1900),
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1900),
                                   lastDate: DateTime(2100)))!;
-                              account.dob = DateFormat('yyyy-MM-dd').format(date);
-                              dateCtl.text = DateFormat('yyyy-MM-dd').format(date);},
+                              account.dob =
+                                  DateFormat('yyyy-MM-dd').format(date);
+                              dateCtl.text =
+                                  DateFormat('yyyy-MM-dd').format(date);
+                            },
                           ),
                           SizedBox(
                             height: DeviceUtils.getScaledHeight(context,
@@ -240,7 +256,7 @@ class _SignupState extends State<Signup> {
                               if (value == null || value.isEmpty) {
                                 return 'Enter Your Phone Number';
                               }
-                              if(value.length < 11 || value.length > 11 )
+                              if (value.length < 11 || value.length > 11)
                                 return 'Incorrect Phone Number';
                             },
                             onChanged: (val) {
@@ -249,6 +265,96 @@ class _SignupState extends State<Signup> {
                               });
                             },
                           ),
+                          SizedBox(
+                            height: DeviceUtils.getScaledHeight(context,
+                                scale: 0.02),
+                          ),
+                          Text(
+                            'State of Residence',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
+                          ),
+
+                          DropdownButtonFormField(
+                              decoration: InputDecorationValues(
+                                  hintText: "Select state",
+                                  prefixIcon: Icons.person_outline),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13,
+                                  fontFamily: 'Montserrat Regular',
+                                  color: AppColors.color10),
+                              items: signUpController.listValue.map((state) {
+                                return new DropdownMenuItem<dynamic>(
+                                    value: state.name, child: Text(state.name));
+                              }).toList(),
+                              onTap: () {
+                                FocusScope.of(context).unfocus();
+                              },
+                              validator: (value) {
+                                if (value == null) {
+                                  return "Selecet an option ";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              onChanged: (val) {
+                                // Function to select state local government areas from selected state
+                                setState(() {
+                                  state_selected =  val;
+                                  account.state_of_residence = val.toString();
+                                  dropdownValue = signUpController
+                                      .listValue[signUpController.listValue
+                                              .firstWhere((element) =>
+                                                  (element.name == state_selected))
+                                              .id -
+                                          1]
+                                      .locals;
+                                  lga_selected = null;
+                                });
+                              }),
+
+                          // Local Government Area Field
+                          SizedBox(
+                            height: DeviceUtils.getScaledHeight(context,
+                                scale: 0.02),
+                          ),
+                          Text(
+                            'LGA of Residence',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
+                          ),
+
+                          DropdownButtonFormField(
+                              decoration: InputDecorationValues(
+                                  hintText: "Select LGA of residence",
+                                  prefixIcon: Icons.local_activity),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13,
+                                  fontFamily: 'Montserrat Regular',
+                                  color: AppColors.color10),
+                              value: lga_selected,
+                              items: dropdownValue.map((locale) {
+                                return new DropdownMenuItem<String>(
+                                    value: locale['name'],
+                                    child: Text(locale['name']));
+                              }).toList(),
+                              onTap: () {
+                                FocusScope.of(context).unfocus();
+                              },
+                              onChanged: (val) {
+                                setState(() {
+                                  lga_selected = val;
+                                  account.lga_of_residence = val.toString();
+                                });
+                              }),
                           SizedBox(
                             height: DeviceUtils.getScaledHeight(context,
                                 scale: 0.02),
@@ -272,8 +378,8 @@ class _SignupState extends State<Signup> {
                                 hintText: "Family Contact ",
                                 prefixIcon: Icons.perm_identity),
                             validator: (value) {
-                              if (value != null ) {
-                                if(value.length < 11 || value.length > 11 )
+                              if (value != null) {
+                                if (value.length < 11 || value.length > 11)
                                   return 'Incorrect Phone Number';
                               }
                             },
@@ -297,6 +403,7 @@ class _SignupState extends State<Signup> {
                             textAlign: TextAlign.center,
                           ),
                           TextFormField(
+                            obscureText: true,
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 13,
@@ -309,7 +416,7 @@ class _SignupState extends State<Signup> {
                               if (value == null || value.isEmpty) {
                                 return 'Please Enter Password';
                               }
-                              if(value.length < 6 ){
+                              if (value.length < 6) {
                                 return "Password Must Be At Least 6 Characters";
                               }
                             },
@@ -333,6 +440,7 @@ class _SignupState extends State<Signup> {
                             textAlign: TextAlign.center,
                           ),
                           TextFormField(
+                            obscureText: true,
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 13,
@@ -345,7 +453,7 @@ class _SignupState extends State<Signup> {
                               if (value == null || value.isEmpty) {
                                 return 'Please Enter Password';
                               }
-                              if(value.length < 6 ){
+                              if (value.length < 6) {
                                 return "Password Must Be At Least 6 Characters";
                               }
                             },
@@ -386,9 +494,10 @@ class _SignupState extends State<Signup> {
                               ),
                             ),
                             onPressed: () async {
+
                               if (_formKey.currentState!.validate()) {
-                                print(account.dob);
-                                if(account.password == confirm_password){
+                                print(account.state_of_residence);
+                                if (account.password == confirm_password) {
                                   setState(() {
                                     confirm_password_error = "";
                                   });
@@ -399,16 +508,16 @@ class _SignupState extends State<Signup> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                Login()));
+                                            builder: (context) => Login()));
                                   } else {
                                     toast(signUpController.message.value);
                                     _btnController.reset();
                                   }
                                 } else {
-                                    setState(() {
-                                      confirm_password_error = "Password Mismatch";
-                                    });
+                                  setState(() {
+                                    confirm_password_error =
+                                        "Password Mismatch";
+                                  });
                                   _btnController.reset();
                                 }
                               } else
@@ -421,8 +530,8 @@ class _SignupState extends State<Signup> {
                     Column(
                       children: [
                         SizedBox(
-                          height: DeviceUtils.getScaledHeight(context,
-                              scale: 0.04),
+                          height:
+                              DeviceUtils.getScaledHeight(context, scale: 0.04),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -449,15 +558,14 @@ class _SignupState extends State<Signup> {
                               ])),
                         ),
                         SizedBox(
-                          height: DeviceUtils.getScaledHeight(context,
-                              scale: 0.04),
+                          height:
+                              DeviceUtils.getScaledHeight(context, scale: 0.04),
                         ),
                       ],
                     )
                   ],
                 ),
               ));
-        })
-    );
+        }));
   }
 }

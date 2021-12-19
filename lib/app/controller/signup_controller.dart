@@ -12,9 +12,8 @@ class SignUpController extends BaseController {
     dynamic data;
     var url = Uri.parse('${Strings.domain}api/user/register_user');
 
+    print(url);
     data = account.toJson();
-
-    print(data);
 
     // Sending parameters to http request. Implemented in base controller
     var result = await sendHttpRequest(url, data, 'post');

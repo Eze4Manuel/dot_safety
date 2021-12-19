@@ -2,12 +2,16 @@
 
 import 'dart:convert';
 
+import 'package:dot_safety/app/model/states.dart';
+import 'package:dot_safety/app/utils/load_json_file.dart';
 import 'package:dot_safety/app/utils/shared_prefs.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:http/http.dart' as http;
 
 class BaseController extends GetxController {
+
+  List listValue = [].obs;
 
   RxString message = ''.obs;
   final RegExp emailRegex = new RegExp(
@@ -137,5 +141,20 @@ class BaseController extends GetxController {
   }
 
 
+  // Parsing the readfile to json
+  Future parseJson() async {
+    //Loading LoadJsonFile from service folder load_json_file
+    String jsonString = await LoadJsonFile.loadFile();
+    final jsonResponse = jsonDecode(jsonString);
+    if (jsonResponse != null) {
+      jsonResponse.forEach((element) {
+        States state = new States(
+            name: element["state"]["name"],
+            id: element["state"]["id"],
+            locals: element["state"]["locals"]);
+        listValue.add(state);
+      });
+    }
+  }
 
 }

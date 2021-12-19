@@ -1,4 +1,5 @@
 import 'package:dot_safety/app/controller/login_controller.dart';
+import 'package:dot_safety/app/controller/signup_controller.dart';
 import 'package:dot_safety/app/ui/pages/dashboard/dashboard.dart';
 import 'package:dot_safety/app/ui/pages/email_verify.dart';
 import 'package:dot_safety/app/ui/pages/forgot_password.dart';
@@ -21,6 +22,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   final LoginController loginController = Get.put(LoginController());
+  final SignUpController signUpController = Get.put(SignUpController());
 
   final _formKey = GlobalKey<FormState>();
 
@@ -29,6 +31,12 @@ class _LoginState extends State<Login> {
 
   String email = '';
   String password = '';
+
+  @override
+  void initState() {
+    super.initState();
+    signUpController.parseJson();
+  }
 
   @override
   Widget build(BuildContext context) {
