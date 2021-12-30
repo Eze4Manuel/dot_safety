@@ -89,7 +89,7 @@ class _SettingsViewState extends State<SettingsView> {
                           );
                         },
                         body: ListTile(
-                          title: Text('Description text',
+                          title: Text('English',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: 'Montserrat Regular',

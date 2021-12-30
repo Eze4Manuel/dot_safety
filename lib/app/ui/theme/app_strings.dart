@@ -1,8 +1,8 @@
 class Strings {
   Strings._();
 
-  // static const String domain = "http://10.0.2.2:5000/";
-  static const String domain = "https://tranquil-hamlet-74718.herokuapp.com/";
+  static const String domain = "http://10.0.2.2:5000/";
+  // static const String domain = "https://tranquil-hamlet-74718.herokuapp.com/";
   static const String appName = "Dot Safety";
   static const String onBoardingTitle1 = "SECURITY ALERT SYSTEM";
   static const String onBoardingText1 = "Dot safety assures you of safety by activating instant security alert to relevant government agencies, family and friends to ensure your protection at all times.";
@@ -38,7 +38,6 @@ class Strings {
   static const String verifyMailText = "An email was sent to your email, Kindly check your inbox to verify it.";
   static const String resetPassword = "RESET PASSWORD";
   static const String forgotPasswordText = "Enter your verified email address to reset your password.";
-
 
   static const String setNewPassword = "Set your new password so you can login";
   static const String selectEvent = "Select an Event";

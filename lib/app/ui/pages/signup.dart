@@ -1,6 +1,5 @@
 import 'package:dot_safety/app/controller/signup_controller.dart';
 import 'package:dot_safety/app/model/account.dart';
-import 'package:dot_safety/app/ui/pages/email_verify.dart';
 import 'package:dot_safety/app/ui/pages/login.dart';
 import 'package:dot_safety/app/utils/temp_data.dart';
 import 'package:dot_safety/app/utils/widget_utils.dart';
@@ -10,7 +9,6 @@ import 'package:dot_safety/app/utils/device_utils.dart';
 import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:intl/intl.dart';
 

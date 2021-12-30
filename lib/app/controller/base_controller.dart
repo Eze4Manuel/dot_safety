@@ -86,8 +86,8 @@ class BaseController extends GetxController {
 
       var token = await SharedPrefs.readSingleString('token');
       var response;
-
       switch(httpMethod){
+
         case 'get':
           response =
           await http.get(
@@ -110,6 +110,17 @@ class BaseController extends GetxController {
                 "Authorization": "Bearer ${token}"
               },
               body: jsonEncode(data));
+          break;
+        case 'delete':
+          response =
+          await http.delete(
+              url,
+              headers: {
+                "Accept": "*/*",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer ${token}"
+              },
+             );
           break;
 
         default:

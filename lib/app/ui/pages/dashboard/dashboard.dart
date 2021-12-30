@@ -1,7 +1,7 @@
 import 'package:dot_safety/app/ui/pages/dashboard/home.dart';
 import 'package:dot_safety/app/ui/pages/dashboard/search.dart';
 import 'package:dot_safety/app/ui/pages/profile/profile.dart';
-import 'package:dot_safety/app/ui/pages/vehicle/vehicle_document.dart';
+import 'package:dot_safety/app/ui/pages/vehicle/document_list.dart';
 import 'package:dot_safety/app/ui/pages/notification/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_safety/app/ui/theme/app_colors.dart';
@@ -23,7 +23,7 @@ class _DashboardState extends State<Dashboard> {
   final List<Widget> _children = [
     HomeScreen(),
     SearchScreen(),
-    VehicleDocument(),
+    DocumentList(),
     NotificationList(),
     Profile(),
   ];

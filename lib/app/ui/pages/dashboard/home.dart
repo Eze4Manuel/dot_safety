@@ -1,4 +1,5 @@
 import 'package:dot_safety/app/controller/dashboard_controller.dart';
+import 'package:dot_safety/app/controller/vehicle_controller.dart';
 import 'package:dot_safety/app/ui/pages/dashboard/selectLawEnforcement.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:dot_safety/app/utils/shared_prefs.dart';
@@ -9,7 +10,7 @@ import 'package:dot_safety/app/utils/device_utils.dart';
 import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -20,12 +21,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int? selectedIndex;
   String? firstName = '';
-  String profileImage = 'https://img.icons8.com/emoji/96/000000/person.png';
+  String dum = 'https://img.icons8.com/emoji/96/000000/person.png';
+  String profileImage = '';
 
   List<String> litems = ["Traffic Offence", "Accident", "Kidnap"];
 
 
   final DashboardController dashboardController = Get.put(DashboardController());
+  final VehicleController vehicleController = Get.put(VehicleController());
 
   updateState(index) {
     setState(() {
@@ -36,24 +39,33 @@ class _HomeScreenState extends State<HomeScreen> {
   void getShared() async {
     var a = await SharedPrefs.readSingleString('first_name');
     var c = await SharedPrefs.readSingleString('image_url');
+
     setState(() {
       firstName = a;
       if(c != null && c.length > 0){
         profileImage = '${Strings.domain}'+ c;
-
       }
     });
+  }
+
+  void getVehicleData() async {
+    vehicleController.getUploadedVehicled();
+  }
+
+  void getGoodsData() async {
+
   }
 
   @override
   void initState(){
     super.initState();
     getShared();
+    getVehicleData();
+    getGoodsData();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(profileImage);
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       drawer: Container(
@@ -96,15 +108,43 @@ class _HomeScreenState extends State<HomeScreen> {
                                   },
                                   child: Align(
                                     alignment: Alignment.centerRight,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(100.0),
-                                      child: Image.network(
-                                        '${profileImage}',
-                                        width: 50.0,
-                                        height: 50.0,
-                                        fit: BoxFit.fill,
-                                      )
+                                    child: CircleAvatar(
+                                      radius: 25.0,
+                                      backgroundColor: AppColors.color11,
+                                      child: CachedNetworkImage(
+                                        imageUrl: profileImage,
+                                        fit: BoxFit.cover,
+                                        imageBuilder: (context, imageProvider) => Container(
+                                          width: 80.0,
+                                          height: 80.0,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                                image: imageProvider, fit: BoxFit.cover),
+                                          ),),
+                                        placeholder: (context, url) => CircleAvatar(
+                                          radius: 25,
+                                          backgroundColor: AppColors.color11,
+                                          child: Container(),
+                                        ),
+                                        errorWidget: (context, url, error) => Container(),
+                                      ),
                                     ),
+
+
+                                    // CircleAvatar(
+                                    //   radius: 25.0,
+                                    //   backgroundImage: NetworkImage(
+                                    //     profileImage,
+                                    //   ),
+                                    //   onBackgroundImageError:  (exception,context) {
+                                    //     print('${profileImage} Cannot be loaded');
+                                    //     print('Error msg : ${exception.toString()}');
+                                    //   },
+                                    //   backgroundColor: AppColors.color3,
+                                    // ),
+
+
                                   ),
                                 ),
                                 SizedBox(
