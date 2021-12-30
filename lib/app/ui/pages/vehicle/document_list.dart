@@ -202,8 +202,8 @@ class _DocumentListState extends State<DocumentList> {
                                     onTap: (){
                                       Navigator.push(
                                         context,
-                                        // MaterialPageRoute(builder: (context) => VehicleDocument()),
-                                        MaterialPageRoute(builder: (context) => VehicleFileUpload()),
+                                        MaterialPageRoute(builder: (context) => VehicleDocument()),
+                                        // MaterialPageRoute(builder: (context) => VehicleFileUpload()),
 
                                       );
                                     },
