@@ -46,7 +46,7 @@ class _DocumentListState extends State<DocumentList> {
 
   @override
   void initState(){
-    print(vehicleController.vehicles);
+
   }
 
   @override
@@ -136,8 +136,7 @@ class _DocumentListState extends State<DocumentList> {
                                       ),
                                       child: ListTile(
                                         onTap: (){
-                                          Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) => EditVehicle(vehicle: vehicleController.vehicles[i])));
+
                                         },
                                         minLeadingWidth: 0,
                                         horizontalTitleGap: 10.0,
@@ -145,12 +144,12 @@ class _DocumentListState extends State<DocumentList> {
                                           padding: EdgeInsets.all(5),
                                           decoration: BoxDecoration(
                                               border: Border.all(
-                                                color: Colors.red,
+                                                color: AppColors.secondaryColor,
                                               ),
                                               borderRadius: BorderRadius.all(Radius.circular(100))),
                                           child: Icon(
                                             Icons.car_rental_sharp,
-                                            color: AppColors.color5,
+                                            color: AppColors.secondaryColor,
                                           ),
 
                                         ),
@@ -159,7 +158,7 @@ class _DocumentListState extends State<DocumentList> {
                                           style: TextStyle(
                                               fontWeight: FontWeight.normal,
                                               fontSize: 13,
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Montserrat Bold'),
                                         ),
                                         subtitle: Row(
                                           children: [
@@ -183,8 +182,15 @@ class _DocumentListState extends State<DocumentList> {
                                             ),
                                           ],
                                         ),
-                                        trailing:  Container(
-                                            child: Icon(Icons.edit)
+                                        trailing:  GestureDetector(
+                                          onTap: (){
+                                            vehicleController.currentVehicle = vehicleController.vehicles[i];
+                                            Navigator.push(context,
+                                                MaterialPageRoute(builder: (context) => EditVehicle()));
+                                          },
+                                          child: Container(
+                                              child: Icon(Icons.edit, color: AppColors.appPrimaryColor,)
+                                          ),
                                         ),
                                       ),
                                     );
@@ -204,7 +210,6 @@ class _DocumentListState extends State<DocumentList> {
                                         context,
                                         MaterialPageRoute(builder: (context) => VehicleDocument()),
                                         // MaterialPageRoute(builder: (context) => VehicleFileUpload()),
-
                                       );
                                     },
                                     minLeadingWidth: 0,

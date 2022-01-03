@@ -21,7 +21,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int? selectedIndex;
   String? firstName = '';
-  String dum = 'https://img.icons8.com/emoji/96/000000/person.png';
+  // String dum = 'https://img.icons8.com/emoji/96/000000/person.png';
   String profileImage = '';
 
   List<String> litems = ["Traffic Offence", "Accident", "Kidnap"];
@@ -111,7 +111,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: CircleAvatar(
                                       radius: 25.0,
                                       backgroundColor: AppColors.color11,
-                                      child: CachedNetworkImage(
+                                      child: (profileImage.length > 0) ?
+                                       CachedNetworkImage(
                                         imageUrl: profileImage,
                                         fit: BoxFit.cover,
                                         imageBuilder: (context, imageProvider) => Container(
@@ -128,22 +129,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                           child: Container(),
                                         ),
                                         errorWidget: (context, url, error) => Container(),
-                                      ),
+                                      )
+                                          : Container()
                                     ),
-
-
-                                    // CircleAvatar(
-                                    //   radius: 25.0,
-                                    //   backgroundImage: NetworkImage(
-                                    //     profileImage,
-                                    //   ),
-                                    //   onBackgroundImageError:  (exception,context) {
-                                    //     print('${profileImage} Cannot be loaded');
-                                    //     print('Error msg : ${exception.toString()}');
-                                    //   },
-                                    //   backgroundColor: AppColors.color3,
-                                    // ),
-
 
                                   ),
                                 ),
@@ -155,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   'Hi, ${firstName}!'.substring(0, firstName!.length + 5),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20,
+                                      fontSize: 18,
                                       fontFamily: 'Montserrat Regular',
                                       color: AppColors.appPrimaryColor),
                                   textAlign: TextAlign.center,
@@ -188,26 +176,30 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
                             padding: EdgeInsets.only(
                                 left: DeviceUtils.getScaledWidth(context,
-                                    scale: 0.05)),
+                                    scale: 0.02)),
                             child: Align(
-                              alignment: Alignment.centerRight,
+                              alignment: Alignment.topLeft,
                               child: Text(
-                                'Issue:',
+                                'Issues',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontFamily: 'Montserrat Regular',
                                     color: AppColors.appPrimaryColor),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                           ),
+                          SizedBox(
+                            width: DeviceUtils.getScaledWidth(context, scale: 0.02),
+                          ),
                           Align(
-                            alignment: Alignment.centerRight,
+                            alignment: Alignment.center,
                             child: CarouselWidget(context),
                           ),
                         ],
@@ -259,7 +251,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 StatelessWidget CarouselWidget(context) {
   return Container(
-      height: 40,
+      height: 30,
       width: DeviceUtils.getScaledWidth(context, scale: 0.77),
       child: ListView(
         scrollDirection: Axis.horizontal,
@@ -267,56 +259,50 @@ StatelessWidget CarouselWidget(context) {
           GestureDetector(
               onTap: () {},
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.color3),
-                  borderRadius: BorderRadius.circular(4), // radius of 10
-                ),
+                padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+
                 child: Text(
                   'Nearby',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                    fontSize: 12,
                     fontFamily: 'Montserrat Regular',
                   ),
                 ),
               )),
           SizedBox(
-            width: DeviceUtils.getScaledWidth(context, scale: 0.02),
+            width: DeviceUtils.getScaledWidth(context, scale: 0.01),
           ),
           GestureDetector(
               onTap: () {},
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.color3),
-                  borderRadius: BorderRadius.circular(4), // radius of 10
-                ),
+                padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                // decoration: BoxDecoration(
+                //   border: Border.all(color: AppColors.color3),
+                //   borderRadius: BorderRadius.circular(4), // radius of 10
+                // ),
                 child: Text(
                   'Nationwide',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                    fontSize: 12,
                     fontFamily: 'Montserrat Regular',
                   ),
                 ),
               )),
           SizedBox(
-            width: DeviceUtils.getScaledWidth(context, scale: 0.02),
+            width: DeviceUtils.getScaledWidth(context, scale: 0.01),
           ),
           GestureDetector(
               onTap: () {},
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.color3),
-                  borderRadius: BorderRadius.circular(4), // radius of 10
-                ),
+                padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+
                 child: Text(
                   'My Community',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                    fontSize: 12,
                     fontFamily: 'Montserrat Regular',
                   ),
                 ),

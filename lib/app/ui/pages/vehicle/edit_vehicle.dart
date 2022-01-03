@@ -4,18 +4,17 @@ import 'package:dot_safety/app/ui/pages/vehicle/vehicle_file_uploads.dart';
 import 'package:dot_safety/app/ui/pages/vehicle/vehicle_file_uploads_update.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:dot_safety/app/utils/temp_data.dart';
+import 'package:dot_safety/app/utils/widget_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_safety/app/utils/responsive_safe_area.dart';
 import 'package:dot_safety/app/utils/device_utils.dart';
 import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class EditVehicle extends StatefulWidget {
-  var vehicle;
-
-  EditVehicle({this.vehicle});
 
   @override
   State<EditVehicle> createState() => _EditVehicleState();
@@ -31,6 +30,7 @@ class _EditVehicleState extends State<EditVehicle> {
   RoundedLoadingButtonController();
 
   final VehicleController vehicleController = Get.put(VehicleController());
+  TextEditingController dateCtl = TextEditingController();
 
   String dropdownValue = 'Select Type';
 
@@ -42,15 +42,19 @@ class _EditVehicleState extends State<EditVehicle> {
 
   bool editted = false;
 
+
   @override
   void initState() {
+
     setState(() {
-      vehicle_type = widget.vehicle['vehicle_type'];
-      vehicle_name = widget.vehicle['vehicle_name'];
-      vehicle_year = widget.vehicle['vehicle_year'];
-      vehicle_plate_number = widget.vehicle['vehicle_plate_number'];
-      vehicle_color = widget.vehicle['vehicle_color'];
+      vehicle_type = vehicleController.currentVehicle['vehicle_type'];
+      vehicle_name = vehicleController.currentVehicle['vehicle_name'];
+      vehicle_year = vehicleController.currentVehicle['vehicle_year'];
+      vehicle_plate_number = vehicleController.currentVehicle['vehicle_plate_number'];
+      vehicle_color = vehicleController.currentVehicle['vehicle_color'];
     });
+    vehicleController.edittedDocuments =[];
+
   }
 
   @override
@@ -225,32 +229,42 @@ class _EditVehicleState extends State<EditVehicle> {
                                       scale: 0.01),
                                 ),
                                 TextFormField(
-                                    initialValue: vehicle_year,
-                                    style: GoogleFonts.montserrat(
-                                        textStyle: TextStyle(
+                                  controller: dateCtl,
+                                  style: TextStyle(
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                    )),
-                                    onChanged: (val) {
-                                      setState(() {
-                                        editted = true;
-                                        vehicle_year = val;
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.fromLTRB(
-                                            20.0, 15.0, 20.0, 15.0),
-                                        hintText: vehicle_year,
-                                        border: OutlineInputBorder(
-                                            borderSide: BorderSide(width: 32.0),
-                                            borderRadius:
-                                                BorderRadius.circular(6.0)),
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.white,
-                                                width: 32.0),
-                                            borderRadius:
-                                                BorderRadius.circular(6.0)))),
+                                      fontSize: 13,
+                                      fontFamily: 'Montserrat Regular',
+                                      color: AppColors.color10),
+                                  onSaved: (value) {
+                                    print(value);
+                                  },
+                                  decoration: InputDecorationNoPrefixValues(
+                                      hintText: vehicle_year ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Select a DOB';
+                                    }
+                                  },
+
+                                  onChanged: (val){
+                                    editted = true;
+                                  },
+                                  onTap: () async {
+                                    DateTime date = DateTime(1900);
+                                    FocusScope.of(context)
+                                        .requestFocus(new FocusNode());
+                                    date = (await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        lastDate: DateTime(2100)))!;
+                                    vehicle_year =
+                                        DateFormat('yyyy-MM-dd').format(date);
+                                    dateCtl.text =
+                                        DateFormat('yyyy-MM-dd').format(date);
+                                  },
+                                ),
+
                                 SizedBox(
                                   height: DeviceUtils.getScaledHeight(context,
                                       scale: 0.03),
@@ -318,11 +332,11 @@ class _EditVehicleState extends State<EditVehicle> {
                                 ),
                                 TextFormField(
                                     initialValue: vehicle_color,
-                                    style: GoogleFonts.montserrat(
-                                        textStyle: TextStyle(
+                                    style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14,
-                                    )),
+                                      fontFamily: 'Monserrat Regular'
+                                    ),
                                     onChanged: (val) {
                                       setState(() {
                                         editted = true;
@@ -389,7 +403,7 @@ class _EditVehicleState extends State<EditVehicle> {
                                                 vehicle_year,
                                                 vehicle_plate_number,
                                                 vehicle_color,
-                                                widget.vehicle['_id']
+                                                vehicleController.currentVehicle['_id']
                                             )) {
                                               toast(vehicleController
                                                   .message.value);
@@ -398,7 +412,7 @@ class _EditVehicleState extends State<EditVehicle> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          VehicleFileUploadUpdate(vehicle_id: widget.vehicle['_id'])));
+                                                          VehicleFileUploadUpdate()));
                                             } else {
                                               toast(vehicleController
                                                   .message.value);
@@ -412,7 +426,7 @@ class _EditVehicleState extends State<EditVehicle> {
                                           Navigator.pushReplacement(context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      VehicleFileUpload()));
+                                                      VehicleFileUploadUpdate()));
                                         }
                                       ),
                                     ),
@@ -445,7 +459,7 @@ class _EditVehicleState extends State<EditVehicle> {
                                           _btnController.reset();
                                           _showMyDialog(
                                               context,
-                                              widget.vehicle['_id'],
+                                              vehicleController.currentVehicle['_id'],
                                               vehicleController);
                                         },
                                       ),

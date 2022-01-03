@@ -31,6 +31,8 @@ class ProfileController extends BaseController {
     return false;
   }
 
+
+
   Future<bool> asyncFileUpload (String text, File file) async {
 
     var url = Uri.parse('${Strings.domain}api/profile/upload_image_profile');

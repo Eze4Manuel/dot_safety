@@ -2,12 +2,13 @@ import 'package:dot_safety/app/controller/vehicle_controller.dart';
 import 'package:dot_safety/app/ui/pages/vehicle/vehicle_file_uploads.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:dot_safety/app/utils/temp_data.dart';
+import 'package:dot_safety/app/utils/widget_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_safety/app/utils/responsive_safe_area.dart';
 import 'package:dot_safety/app/utils/device_utils.dart';
 import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class VehicleDocument extends StatefulWidget {
@@ -23,14 +24,15 @@ class _VehicleDocumentState extends State<VehicleDocument> {
       RoundedLoadingButtonController();
 
   final VehicleController vehicleController = Get.put(VehicleController());
+  TextEditingController dateCtl = TextEditingController();
 
   String dropdownValue = 'Select Type';
 
-  late String vehicle_type;
-  late String vehicle_name;
-  late String vehicle_year;
-  late String vehicle_plate_number;
-  late String vehicle_color;
+  late String vehicle_type = '';
+  late String vehicle_name = '';
+  late String vehicle_year = '';
+  late String vehicle_plate_number = '';
+  late String vehicle_color = '';
 
   @override
   Widget build(BuildContext context) {
@@ -205,30 +207,38 @@ class _VehicleDocumentState extends State<VehicleDocument> {
                                       scale: 0.01),
                                 ),
                                 TextFormField(
-                                    style: TextStyle(
+                                  controller: dateCtl,
+                                  style: TextStyle(
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                        fontFamily: 'Montserrat Regular'
-                                    ),
-                                    onChanged: (val) {
-                                      setState(() {
-                                        vehicle_year = val;
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.fromLTRB(
-                                            20.0, 15.0, 20.0, 15.0),
-                                        hintText: "2021, 2010",
-                                        border: OutlineInputBorder(
-                                            borderSide: BorderSide(width: 32.0),
-                                            borderRadius:
-                                                BorderRadius.circular(6.0)),
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.white,
-                                                width: 32.0),
-                                            borderRadius:
-                                                BorderRadius.circular(6.0)))),
+                                      fontSize: 13,
+                                      fontFamily: 'Montserrat Regular',
+                                      color: AppColors.color10),
+                                  onSaved: (value) {
+                                    print(value);
+                                  },
+                                  decoration: InputDecorationNoPrefixValues(
+                                      hintText: "Vehicle Make Year"),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Select a DOB';
+                                    }
+                                  },
+                                  onTap: () async {
+                                    DateTime date = DateTime(1900);
+                                    FocusScope.of(context)
+                                        .requestFocus(new FocusNode());
+                                    date = (await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        lastDate: DateTime(2100)))!;
+                                    vehicle_year =
+                                        DateFormat('yyyy-MM-dd').format(date);
+                                    dateCtl.text =
+                                        DateFormat('yyyy-MM-dd').format(date);
+                                  },
+                                ),
+
                                 SizedBox(
                                   height: DeviceUtils.getScaledHeight(context,
                                       scale: 0.03),

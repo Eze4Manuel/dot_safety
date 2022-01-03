@@ -1,13 +1,20 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:dot_safety/app/controller/base_controller.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:dot_safety/app/utils/shared_prefs.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:http/http.dart' as http;
 
 class VehicleController extends BaseController {
   RxBool loading = false.obs;
 
   List vehicles = [];
+  List documents = [];
+  List tempDocs = [];
+  List edittedDocuments = [];
 
   var currentVehicle;
 
@@ -31,8 +38,7 @@ class VehicleController extends BaseController {
     if (result == false) {
       return result;
     } else {
-
-      vehicles.add(result);
+      vehicles.addNonNull(result);
       currentVehicle = result;
       setMessage("Vehicle Created");
       return Future<bool>.value(true);
@@ -139,5 +145,102 @@ class VehicleController extends BaseController {
 
 
 
+  Future<bool> asyncDocumentUpload (String text, String expiryDate, String documentType, File file) async {
+    var url = Uri.parse('${Strings.domain}api/vehicle/upload_vehicle_document');
+
+    //create multipart request for POST or PATCH method
+    var request = http.MultipartRequest("POST", url);
+
+    var token = await SharedPrefs.readSingleString('token');
+    var _id = await SharedPrefs.readSingleString('_id');
+
+    // Adding headers
+    Map<String, String> headers = {
+      "Accept": "*/*",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${token}"
+    };
+    request.headers.addAll(headers);
+
+    //add text fields
+    request.fields["user_id"] = _id;
+    request.fields["vehicle_id"] = text;
+    request.fields["expiry_date"] = expiryDate;
+    request.fields["document_type"] = documentType;
+
+    //create multipart using filepath, string or bytes
+    var pic = await http.MultipartFile.fromPath("document_image", file.path);
+    //add multipart to request
+    request.files.add(pic);
+
+
+    var response = await request.send();
+
+
+    //Get the response from the server
+    var responseData = await response.stream.toBytes();
+    var responseString = String.fromCharCodes(responseData);
+    var result = jsonDecode(responseString);
+
+    // SharedPrefs.saveString('image_url', result['data']['image_url']);
+
+    print(result);
+
+    if (documents.isEmpty) {
+      documents.addNonNull({
+        "expiry_date": result['data']['expiry_date'],
+        "document_type": result['data']['document_type'],
+        "images": [result['data']['image_url']]
+      });
+    } else {
+      // Getting index of element
+      var ind = documents.indexWhere((element) =>
+      element['document_type'] == result['data']['document_type']);
+
+      print(ind);
+      // If element doesn't exist in list add it
+      if (ind == -1) {
+        documents.addNonNull({
+          "expiry_date": result['data']['expiry_date'],
+          "document_type": result['data']['document_type'],
+          "images": [result['data']['image_url']]
+        });
+      }else{
+
+        // if element exists, update it
+        var element = documents.elementAt(ind);
+        element['images'] = [...element['images'], result['data']['image_url']];
+        print(element);
+
+        documents.replaceRange(ind, ind + 1, [element]);
+      }
+    }
+
+    print(documents);
+    setMessage('Document Upload Success');
+    return true;
+  }
+
+
+
+  Future<bool> getUploadedDocument(String vehicle_id) async {
+
+      var url = Uri.parse('${Strings.domain}api/vehicle/get_documents?vehicle_id=${vehicle_id}');
+      print(url);
+
+      // Sending parameters to http request. Implemented in base controller
+      var result = await sendAuthorizedHttpRequest(url, {}, 'get');
+
+      if (result == false) {
+        return result;
+      } else {
+
+        edittedDocuments = result;
+
+        // setMessage("Goods Creation Success");
+        return Future<bool>.value(true);
+      }
+
+  }
 
 }
