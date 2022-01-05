@@ -5,7 +5,6 @@ import 'package:dot_safety/app/utils/responsive_safe_area.dart';
 import 'package:dot_safety/app/utils/device_utils.dart';
 import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Welcome extends StatelessWidget {
   @override

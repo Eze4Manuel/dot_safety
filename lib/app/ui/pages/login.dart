@@ -13,6 +13,7 @@ import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -32,9 +33,17 @@ class _LoginState extends State<Login> {
   String email = '';
   String password = '';
 
+  Future<void> getDesigns() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs.getString('email'));
+    var email = prefs.getString('email');
+    print(email);
+  }
+
   @override
   void initState() {
     super.initState();
+    getDesigns();
     signUpController.parseJson();
   }
 

@@ -11,6 +11,7 @@ import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:intl/intl.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -21,6 +22,11 @@ class _SignupState extends State<Signup> {
   final _formKey = GlobalKey<FormState>();
 
   final SignUpController signUpController = Get.put(SignUpController());
+
+  final TextEditingController controller = TextEditingController();
+  String initialCountry = 'NG';
+  PhoneNumber number = PhoneNumber(isoCode: 'NG');
+  bool valid = false;
 
   Account account = Account();
   String confirm_password = '';
@@ -49,7 +55,7 @@ class _SignupState extends State<Signup> {
         backgroundColor: AppColors.whiteColor,
         body: ResponsiveSafeArea(builder: (context, size) {
           return Container(
-              color: AppColors.whiteColor,
+              color: AppColors.color2,
               padding: EdgeInsets.symmetric(
                   horizontal: DeviceUtils.getScaledWidth(context, scale: 0.07)),
               height: DeviceUtils.getScaledHeight(context, scale: 1),
@@ -97,7 +103,7 @@ class _SignupState extends State<Signup> {
                                 fontSize: 13,
                                 fontFamily: 'Montserrat Regular',
                                 color: AppColors.color10),
-                            decoration: InputDecorationValues(
+                            decoration: InputDecorationNoPrefixValues(
                                 hintText: "First Name",
                                 prefixIcon: Icons.person_outline),
                             validator: (value) {
@@ -131,7 +137,7 @@ class _SignupState extends State<Signup> {
                                 fontSize: 13,
                                 fontFamily: 'Montserrat Regular',
                                 color: AppColors.color10),
-                            decoration: InputDecorationValues(
+                            decoration: InputDecorationNoPrefixValues(
                                 hintText: "Last Name",
                                 prefixIcon: Icons.person_outline),
                             validator: (value) {
@@ -165,13 +171,12 @@ class _SignupState extends State<Signup> {
                                 fontSize: 13,
                                 fontFamily: 'Montserrat Regular',
                                 color: AppColors.color10),
-                            decoration: InputDecorationValues(
+                            decoration: InputDecorationNoPrefixValues(
                                 hintText: "Email address",
                                 prefixIcon: Icons.mail_outline),
                             validator: (value) {
                               if (!signUpController.emailRegex
-                                      .hasMatch(value!) ||
-                                  value == null)
+                                      .hasMatch(value!))
                                 return 'Enter a Valid Email Address';
                               else
                                 return null;
@@ -205,7 +210,7 @@ class _SignupState extends State<Signup> {
                             onSaved: (value) {
                               print(value);
                             },
-                            decoration: InputDecorationValues(
+                            decoration: InputDecorationNoPrefixValues(
                                 hintText: "Date Of Birth",
                                 prefixIcon: Icons.date_range_outlined),
                             validator: (value) {
@@ -241,28 +246,51 @@ class _SignupState extends State<Signup> {
                                 color: AppColors.color10),
                             textAlign: TextAlign.center,
                           ),
-                          TextFormField(
-                            style: TextStyle(
+                          InternationalPhoneNumberInput(
+                            textStyle: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 13,
                                 fontFamily: 'Montserrat Regular',
                                 color: AppColors.color10),
-                            decoration: InputDecorationValues(
-                                hintText: "Phone Number",
-                                prefixIcon: Icons.phone_outlined),
+                            inputDecoration: InputDecorationNoPrefixValues(
+                                hintText: "Phone Number"),
+                            onInputChanged: (PhoneNumber number) {
+                              account.phone_number = number.phoneNumber;
+                            },
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Enter Your Phone Number';
                               }
-                              if (value.length < 11 || value.length > 11)
+                              if (!valid)
                                 return 'Incorrect Phone Number';
                             },
-                            onChanged: (val) {
+                            onInputValidated: (bool value) {
+                              print(value);
                               setState(() {
-                                account.phone_number = val;
+                                valid = value;
                               });
                             },
+                            selectorConfig: SelectorConfig(
+                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                            ),
+                            ignoreBlank: false,
+                            autoValidateMode: AutovalidateMode.disabled,
+                            selectorTextStyle: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                fontFamily: 'Montserrat Regular',
+                                color: AppColors.color10),
+                            initialValue: number,
+                            textFieldController: controller,
+                            formatInput: false,
+                            keyboardType:
+                            TextInputType.numberWithOptions(signed: true, decimal: true),
+                            inputBorder: OutlineInputBorder(),
+                            onSaved: (PhoneNumber number) {
+                              print('On Saved: $number');
+                            },
                           ),
+
                           SizedBox(
                             height: DeviceUtils.getScaledHeight(context,
                                 scale: 0.02),
@@ -277,7 +305,7 @@ class _SignupState extends State<Signup> {
                           ),
 
                           DropdownButtonFormField(
-                              decoration: InputDecorationValues(
+                              decoration: InputDecorationNoPrefixValues(
                                   hintText: "Select state",
                                   prefixIcon: Icons.person_outline),
                               style: TextStyle(
@@ -330,9 +358,9 @@ class _SignupState extends State<Signup> {
                           ),
 
                           DropdownButtonFormField(
-                              decoration: InputDecorationValues(
+                              decoration: InputDecorationNoPrefixValues(
                                   hintText: "Select LGA of residence",
-                                  prefixIcon: Icons.local_activity),
+                                  ),
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 13,
@@ -357,40 +385,7 @@ class _SignupState extends State<Signup> {
                             height: DeviceUtils.getScaledHeight(context,
                                 scale: 0.02),
                           ),
-                          Text(
-                            'Family Contact Number',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13,
-                                fontFamily: 'Montserrat Regular',
-                                color: AppColors.color10),
-                            textAlign: TextAlign.center,
-                          ),
-                          TextFormField(
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13,
-                                fontFamily: 'Montserrat Regular',
-                                color: AppColors.color10),
-                            decoration: InputDecorationValues(
-                                hintText: "Family Contact ",
-                                prefixIcon: Icons.perm_identity),
-                            validator: (value) {
-                              if (value != null) {
-                                if (value.length < 11 || value.length > 11)
-                                  return 'Incorrect Phone Number';
-                              }
-                            },
-                            onChanged: (val) {
-                              setState(() {
-                                account.contact = val;
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            height: DeviceUtils.getScaledHeight(context,
-                                scale: 0.02),
-                          ),
+
                           Text(
                             'Password ( Must be at least 6 characters )',
                             style: TextStyle(
@@ -407,7 +402,7 @@ class _SignupState extends State<Signup> {
                                 fontSize: 13,
                                 fontFamily: 'Montserrat Regular',
                                 color: AppColors.color10),
-                            decoration: InputDecorationValues(
+                            decoration: InputDecorationNoPrefixValues(
                                 hintText: "********",
                                 prefixIcon: Icons.lock_outlined),
                             validator: (value) {
@@ -444,7 +439,7 @@ class _SignupState extends State<Signup> {
                                 fontSize: 13,
                                 fontFamily: 'Montserrat Regular',
                                 color: AppColors.color10),
-                            decoration: InputDecorationValues(
+                            decoration: InputDecorationNoPrefixValues(
                                 hintText: "********",
                                 prefixIcon: Icons.lock_outlined),
                             validator: (value) {
@@ -494,7 +489,6 @@ class _SignupState extends State<Signup> {
                             onPressed: () async {
 
                               if (_formKey.currentState!.validate()) {
-                                print(account.state_of_residence);
                                 if (account.password == confirm_password) {
                                   setState(() {
                                     confirm_password_error = "";

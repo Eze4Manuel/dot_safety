@@ -5,6 +5,7 @@ import 'package:dot_safety/app/ui/pages/vehicle/vehicle_file_uploads_update.dart
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:dot_safety/app/utils/temp_data.dart';
 import 'package:dot_safety/app/utils/widget_utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_safety/app/utils/responsive_safe_area.dart';
 import 'package:dot_safety/app/utils/device_utils.dart';
@@ -34,11 +35,11 @@ class _EditVehicleState extends State<EditVehicle> {
 
   String dropdownValue = 'Select Type';
 
-  late String vehicle_type = 'Select Type';
-  late String vehicle_name;
-  late String vehicle_year;
-  late String vehicle_plate_number;
-  late String vehicle_color;
+  late String vehicleType = 'Select Type';
+  late String vehicleName;
+  late String vehicleYear;
+  late String vehiclePlateNumber;
+  late String vehicleColor;
 
   bool editted = false;
 
@@ -47,11 +48,11 @@ class _EditVehicleState extends State<EditVehicle> {
   void initState() {
 
     setState(() {
-      vehicle_type = vehicleController.currentVehicle['vehicle_type'];
-      vehicle_name = vehicleController.currentVehicle['vehicle_name'];
-      vehicle_year = vehicleController.currentVehicle['vehicle_year'];
-      vehicle_plate_number = vehicleController.currentVehicle['vehicle_plate_number'];
-      vehicle_color = vehicleController.currentVehicle['vehicle_color'];
+      vehicleType = vehicleController.currentVehicle['vehicle_type'];
+      vehicleName = vehicleController.currentVehicle['vehicle_name'];
+      vehicleYear = vehicleController.currentVehicle['vehicle_year'];
+      vehiclePlateNumber = vehicleController.currentVehicle['vehicle_plate_number'];
+      vehicleColor = vehicleController.currentVehicle['vehicle_color'];
     });
     vehicleController.edittedDocuments =[];
 
@@ -117,7 +118,7 @@ class _EditVehicleState extends State<EditVehicle> {
                                       scale: 0.01),
                                 ),
                                 DropdownButtonFormField<String>(
-                                  value: vehicle_type,
+                                  value: vehicleType,
                                   style: GoogleFonts.montserrat(
                                       textStyle: TextStyle(
                                           fontWeight: FontWeight.w400,
@@ -145,7 +146,7 @@ class _EditVehicleState extends State<EditVehicle> {
                                   onChanged: (String? newValue) {
                                     setState(() {
                                       editted = true;
-                                      vehicle_type = newValue!;
+                                      vehicleType = newValue!;
                                     });
                                   },
                                   items: <String>[
@@ -180,7 +181,7 @@ class _EditVehicleState extends State<EditVehicle> {
                                       scale: 0.01),
                                 ),
                                 TextFormField(
-                                    initialValue: vehicle_name,
+                                    initialValue: vehicleName,
                                     style: GoogleFonts.montserrat(
                                         textStyle: TextStyle(
                                       fontWeight: FontWeight.w400,
@@ -195,13 +196,13 @@ class _EditVehicleState extends State<EditVehicle> {
                                     onChanged: (val) {
                                       setState(() {
                                         editted = true;
-                                        vehicle_name = val;
+                                        vehicleName = val;
                                       });
                                     },
                                     decoration: InputDecoration(
                                         contentPadding: EdgeInsets.fromLTRB(
                                             20.0, 15.0, 20.0, 15.0),
-                                        hintText: vehicle_name,
+                                        hintText: vehicleName,
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide(width: 32.0),
                                             borderRadius:
@@ -239,7 +240,7 @@ class _EditVehicleState extends State<EditVehicle> {
                                     print(value);
                                   },
                                   decoration: InputDecorationNoPrefixValues(
-                                      hintText: vehicle_year ),
+                                      hintText: vehicleYear ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please Select a DOB';
@@ -258,7 +259,7 @@ class _EditVehicleState extends State<EditVehicle> {
                                         initialDate: DateTime.now(),
                                         firstDate: DateTime(1900),
                                         lastDate: DateTime(2100)))!;
-                                    vehicle_year =
+                                    vehicleYear =
                                         DateFormat('yyyy-MM-dd').format(date);
                                     dateCtl.text =
                                         DateFormat('yyyy-MM-dd').format(date);
@@ -282,7 +283,7 @@ class _EditVehicleState extends State<EditVehicle> {
                                       scale: 0.01),
                                 ),
                                 TextFormField(
-                                    initialValue: vehicle_plate_number,
+                                    initialValue: vehiclePlateNumber,
                                     style: GoogleFonts.montserrat(
                                         textStyle: TextStyle(
                                       fontWeight: FontWeight.w400,
@@ -297,13 +298,13 @@ class _EditVehicleState extends State<EditVehicle> {
                                     onChanged: (val) {
                                       setState(() {
                                         editted = true;
-                                        vehicle_plate_number = val;
+                                        vehiclePlateNumber = val;
                                       });
                                     },
                                     decoration: InputDecoration(
                                         contentPadding: EdgeInsets.fromLTRB(
                                             20.0, 15.0, 20.0, 15.0),
-                                        hintText: vehicle_plate_number,
+                                        hintText: vehiclePlateNumber,
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide(width: 32.0),
                                             borderRadius:
@@ -331,7 +332,7 @@ class _EditVehicleState extends State<EditVehicle> {
                                       scale: 0.01),
                                 ),
                                 TextFormField(
-                                    initialValue: vehicle_color,
+                                    initialValue: vehicleColor,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14,
@@ -340,13 +341,13 @@ class _EditVehicleState extends State<EditVehicle> {
                                     onChanged: (val) {
                                       setState(() {
                                         editted = true;
-                                        vehicle_color = val;
+                                        vehicleColor = val;
                                       });
                                     },
                                     decoration: InputDecoration(
                                         contentPadding: EdgeInsets.fromLTRB(
                                             20.0, 15.0, 20.0, 15.0),
-                                        hintText: vehicle_color,
+                                        hintText: vehicleColor,
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide(width: 32.0),
                                             borderRadius:
@@ -382,7 +383,7 @@ class _EditVehicleState extends State<EditVehicle> {
                                         successColor: AppColors.appPrimaryColor,
                                         child: Center(
                                           child: Text(
-                                            editted ? 'Update' : 'Proceed',
+                                            editted ? 'Update' : 'Done',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 16,
@@ -398,11 +399,11 @@ class _EditVehicleState extends State<EditVehicle> {
                                               .validate()) {
                                             if (await vehicleController
                                                 .vehicleUpdate(
-                                                vehicle_type,
-                                                vehicle_name,
-                                                vehicle_year,
-                                                vehicle_plate_number,
-                                                vehicle_color,
+                                                vehicleType,
+                                                vehicleName,
+                                                vehicleYear,
+                                                vehiclePlateNumber,
+                                                vehicleColor,
                                                 vehicleController.currentVehicle['_id']
                                             )) {
                                               toast(vehicleController
@@ -412,7 +413,7 @@ class _EditVehicleState extends State<EditVehicle> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          VehicleFileUploadUpdate()));
+                                                          DocumentList()));
                                             } else {
                                               toast(vehicleController
                                                   .message.value);
@@ -426,7 +427,7 @@ class _EditVehicleState extends State<EditVehicle> {
                                           Navigator.pushReplacement(context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      VehicleFileUploadUpdate()));
+                                                      DocumentList()));
                                         }
                                       ),
                                     ),
@@ -482,9 +483,14 @@ class _EditVehicleState extends State<EditVehicle> {
       ),
     );
   }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('vehicle_name', vehicleName));
+  }
 }
 
-Future<void> _showMyDialog(context, vehicle_id, vehicleController) async {
+Future<void> _showMyDialog(context, vehicleId, vehicleController) async {
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
@@ -532,7 +538,7 @@ Future<void> _showMyDialog(context, vehicle_id, vehicleController) async {
                     fontFamily: 'Montserrat Bold',
                     color: AppColors.color5)),
             onPressed: () async {
-              if (await vehicleController.deleteVehicle(vehicle_id)) {
+              if (await vehicleController.deleteVehicle(vehicleId)) {
                 toast(vehicleController.message.value);
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => DocumentList()));

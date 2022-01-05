@@ -45,7 +45,7 @@ class _AccountsState extends State<Accounts> {
     setState(() {
       first_name = a;
       last_name = b;
-      if (c != null && c.length > 0) profileImage = '${Strings.domain}${c}';
+      if (c != null && c.length > 0) profileImage = '${Strings.domain}$c';
     });
   }
 
@@ -159,8 +159,7 @@ class _AccountsState extends State<Accounts> {
                                       .whiteColor // green as background color
                                   ),
                               child: Stack(
-                                overflow: Overflow.visible,
-                                children: [
+                                clipBehavior: Clip.none, children: [
                                   Positioned(
                                     top: DeviceUtils.getScaledHeight(context,
                                         scale: -0.05),
@@ -215,7 +214,7 @@ class _AccountsState extends State<Accounts> {
                                             scale: 0.092),
                                       ),
                                       Text(
-                                        "${first_name} ${last_name}",
+                                        "$first_name $last_name",
                                         style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontFamily: 'Montserrat Bold',

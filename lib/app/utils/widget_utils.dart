@@ -27,9 +27,14 @@ BorderRadius.circular(6.0)));
 InputDecoration InputDecorationNoPrefixValues ({String hintText = "", IconData prefixIcon = Icons.file_present}) {
   return InputDecoration(
       contentPadding: EdgeInsets.fromLTRB(
-          20.0, 15.0, 20.0, 15.0),
+          20.0, 10.0, 20.0, 10.0),
 
       hintText: hintText,
+      hintStyle: TextStyle(
+          fontWeight: FontWeight.w400,
+          fontSize: 13,
+          fontFamily: 'Montserrat Regular',
+          color: AppColors.color10),
       counterText: "",
       border: OutlineInputBorder(
           borderSide: BorderSide(width: 32.0),

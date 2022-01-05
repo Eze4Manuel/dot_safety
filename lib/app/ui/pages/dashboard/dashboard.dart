@@ -52,48 +52,24 @@ class _DashboardState extends State<Dashboard> {
           items: [
             BottomNavigationBarItem(
               icon: new Icon(Icons.home,),
-              title: new Text('',
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Montserrat Regular',
-                  fontSize: 0.0,
-                ),),
+              label: '',
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.search,),
-              title: new Text('',
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Montserrat Regular',
-                  fontSize: 0.0,
-                ),),
+              label: '',
+
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.document_scanner,),
-              title: new Text('',
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Montserrat Regular',
-                  fontSize: 0.0,
-                ),),
+              label: '',
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.notifications_active,),
-                title: Text('',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Montserrat Regular',
-                    fontSize: 0.0,
-                  ),)
+                label: ''
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person),
-                title: Text('',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Montserrat Regular',
-                    fontSize: 0.0,
-                  ),)
+                label: ''
             ),
           ],
         ),

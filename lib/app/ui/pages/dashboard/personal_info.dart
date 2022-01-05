@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:dot_safety/app/utils/responsive_safe_area.dart';
 import 'package:dot_safety/app/utils/device_utils.dart';
 import 'package:dot_safety/app/ui/theme/app_colors.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
@@ -408,8 +408,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                             textAlign: TextAlign.center,
                                           ),
                                           TextFormField(
-                                            maxLengthEnforced: true,
-                                            maxLength: 3,
+                                            maxLengthEnforcement: MaxLengthEnforcement.enforced, maxLength: 3,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 13,

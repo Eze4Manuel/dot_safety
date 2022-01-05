@@ -9,7 +9,6 @@ class Account {
   String? state_of_residence;
   String? lga_of_residence;
   String? address;
-  String? contact;
   String? dob;
   String? password;
 
@@ -22,7 +21,6 @@ class Account {
         this.state_of_residence,
         this.lga_of_residence,
         this.address,
-        this.contact,
         this.dob,
          this.password});
 
@@ -34,7 +32,6 @@ class Account {
     address = json['address'];
     state_of_residence = json['state_of_residence'];
     lga_of_residence = json['lga_of_residence'];
-    contact = json['contact'];
     dob = json['dob'];
     password = json['password'];
   }
@@ -49,7 +46,6 @@ class Account {
     data['state_of_residence'] = this.state_of_residence ?? '';
     data['lga_of_residence'] = this.lga_of_residence ?? '';
     data['address'] = this.address ?? '';
-    data['contact'] = this.contact ?? '';
     data['dob'] = this.dob ?? '';
     data['password'] = this.password ?? '';
     return data;

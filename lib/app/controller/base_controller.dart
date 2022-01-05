@@ -95,7 +95,7 @@ class BaseController extends GetxController {
               headers: {
                 "Accept": "*/*",
                 "Content-Type": "application/json",
-                "Authorization": "Bearer ${token}"
+                "Authorization": "Bearer $token"
               });
           print(response);
 
@@ -107,7 +107,7 @@ class BaseController extends GetxController {
               headers: {
                 "Accept": "*/*",
                 "Content-Type": "application/json",
-                "Authorization": "Bearer ${token}"
+                "Authorization": "Bearer $token"
               },
               body: jsonEncode(data));
           break;
@@ -118,7 +118,7 @@ class BaseController extends GetxController {
               headers: {
                 "Accept": "*/*",
                 "Content-Type": "application/json",
-                "Authorization": "Bearer ${token}"
+                "Authorization": "Bearer $token"
               },
              );
           break;
@@ -130,7 +130,7 @@ class BaseController extends GetxController {
               headers: {
                 "Accept": "*/*",
                 "Content-Type": "application/json",
-                "Authorization": "Bearer ${token}"
+                "Authorization": "Bearer $token"
               },
               body: jsonEncode(data));
           break;

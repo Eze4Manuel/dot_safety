@@ -1,4 +1,5 @@
 import 'package:dot_safety/app/controller/vehicle_controller.dart';
+import 'package:dot_safety/app/ui/pages/vehicle/document_list.dart';
 import 'package:dot_safety/app/ui/pages/vehicle/vehicle_file_uploads.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:dot_safety/app/utils/temp_data.dart';
@@ -370,7 +371,7 @@ class _VehicleDocumentState extends State<VehicleDocument> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    VehicleFileUpload()));
+                                                    DocumentList()));
                                       } else {
                                         toast(vehicleController.message.value);
                                         _btnController.reset();

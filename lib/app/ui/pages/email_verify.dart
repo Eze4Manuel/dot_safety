@@ -113,8 +113,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                                       prefixIcon: Icons.mail_outline),
                                   validator: (value) {
                                     if (!loginController.emailRegex
-                                        .hasMatch(value!) ||
-                                        value == null)
+                                        .hasMatch(value!))
                                       return 'Enter a valid email address';
                                     else
                                       return null;

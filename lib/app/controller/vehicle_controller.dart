@@ -18,16 +18,16 @@ class VehicleController extends BaseController {
 
   var currentVehicle;
 
-  Future<bool> vehicleCreate(String vehicle_type, String vehicle_name, String vehicle_year, String vehicle_plate_number, String vehicle_color) async {
+  Future<bool> vehicleCreate(String vehicleType, String vehicleName, String vehicleYear, String vehiclePlateNumber, String vehicleColor) async {
     dynamic data;
     var url = Uri.parse('${Strings.domain}api/vehicle/vehicle_register');
 
     data = {
-      "vehicle_name": vehicle_name,
-      "vehicle_type": vehicle_type,
-      "vehicle_color": vehicle_color,
-      "vehicle_plate_number": vehicle_plate_number,
-      "vehicle_year": vehicle_year,
+      "vehicle_name": vehicleName,
+      "vehicle_type": vehicleType,
+      "vehicle_color": vehicleColor,
+      "vehicle_plate_number": vehiclePlateNumber,
+      "vehicle_year": vehicleYear,
       "user_id": await SharedPrefs.readSingleString('_id')
     };
 
@@ -47,13 +47,13 @@ class VehicleController extends BaseController {
   }
 
 
-  Future<bool> goodsCreate(String name_of_goods, String category_of_goods, String goods_shortnote) async {
+  Future<bool> goodsCreate(String nameOfGoods, String categoryOfGoods, String goodsShortnote) async {
     dynamic data;
     var url = Uri.parse('${Strings.domain}api/vehicle/goods_register');
     data = {
-      "name_of_goods": name_of_goods,
-      "category_of_goods": category_of_goods,
-      "goods_shortnote": goods_shortnote,
+      "name_of_goods": nameOfGoods,
+      "category_of_goods": categoryOfGoods,
+      "goods_shortnote": goodsShortnote,
       "user_id": await SharedPrefs.readSingleString('_id')
     };
 
@@ -74,9 +74,9 @@ class VehicleController extends BaseController {
     if(vehicles.isNotEmpty){
       return true;
     }else{
-      var user_id = await SharedPrefs.readSingleString('_id');
+      var userId = await SharedPrefs.readSingleString('_id');
 
-      var url = Uri.parse('${Strings.domain}api/vehicle/get_vehicles?user_id=${user_id}');
+      var url = Uri.parse('${Strings.domain}api/vehicle/get_vehicles?user_id=$userId');
       print(url);
 
       // Sending parameters to http request. Implemented in base controller
@@ -93,10 +93,10 @@ class VehicleController extends BaseController {
     }
   }
 
-  Future<bool> deleteVehicle(String vehicle_id) async {
+  Future<bool> deleteVehicle(String vehicleId) async {
 
 
-      var url = Uri.parse('${Strings.domain}api/vehicle/delete_vehicle/${vehicle_id}');
+      var url = Uri.parse('${Strings.domain}api/vehicle/delete_vehicle/$vehicleId');
       print(url);
 
       // Sending parameters to http request. Implemented in base controller
@@ -105,7 +105,7 @@ class VehicleController extends BaseController {
       if (result == false) {
         return result;
       } else {
-        vehicles.removeWhere((elem)=> elem['_id'] == vehicle_id );
+        vehicles.removeWhere((elem)=> elem['_id'] == vehicleId );
         print(vehicles);
         setMessage("Vehicle Deleted Success");
         return Future<bool>.value(true);
@@ -113,17 +113,17 @@ class VehicleController extends BaseController {
   }
 
 
-  Future<bool> vehicleUpdate(String vehicle_type, String vehicle_name, String vehicle_year, String vehicle_plate_number, String vehicle_color, String vehicle_id) async {
+  Future<bool> vehicleUpdate(String vehicleType, String vehicleName, String vehicleYear, String vehiclePlateNumber, String vehicleColor, String vehicleId) async {
     dynamic data;
     var url = Uri.parse('${Strings.domain}api/vehicle/vehicle_update');
 
     data = {
-      "vehicle_name": vehicle_name,
-      "vehicle_type": vehicle_type,
-      "vehicle_color": vehicle_color,
-      "vehicle_plate_number": vehicle_plate_number,
-      "vehicle_year": vehicle_year,
-      "_id": vehicle_id
+      "vehicle_name": vehicleName,
+      "vehicle_type": vehicleType,
+      "vehicle_color": vehicleColor,
+      "vehicle_plate_number": vehiclePlateNumber,
+      "vehicle_year": vehicleYear,
+      "_id": vehicleId
     };
 
     print(url);
@@ -134,7 +134,7 @@ class VehicleController extends BaseController {
       return result;
     } else {
 
-      int indexElement = vehicles.indexWhere((element) => (element['_id'] == vehicle_id));
+      int indexElement = vehicles.indexWhere((element) => (element['_id'] == vehicleId));
       vehicles.replaceRange(indexElement, indexElement + 1, [result]);
 
       setMessage("Vehicle Update Success");
@@ -158,7 +158,7 @@ class VehicleController extends BaseController {
     Map<String, String> headers = {
       "Accept": "*/*",
       "Content-Type": "application/json",
-      "Authorization": "Bearer ${token}"
+      "Authorization": "Bearer $token"
     };
     request.headers.addAll(headers);
 
@@ -223,24 +223,41 @@ class VehicleController extends BaseController {
 
 
 
-  Future<bool> getUploadedDocument(String vehicle_id) async {
+  Future<bool> getUploadedDocument(String vehicleId) async {
 
-      var url = Uri.parse('${Strings.domain}api/vehicle/get_documents?vehicle_id=${vehicle_id}');
+      var url = Uri.parse('${Strings.domain}api/vehicle/get_documents?vehicle_id=$vehicleId');
       print(url);
-
       // Sending parameters to http request. Implemented in base controller
       var result = await sendAuthorizedHttpRequest(url, {}, 'get');
-
       if (result == false) {
         return result;
       } else {
-
         edittedDocuments = result;
 
         // setMessage("Goods Creation Success");
         return Future<bool>.value(true);
       }
-
   }
+
+
+  Future<bool> deleteDocument( String documentId) async {
+    var url = Uri.parse('${Strings.domain}api/vehicle/delete_document/$documentId');
+    print(edittedDocuments);
+
+    // Sending parameters to http request. Implemented in base controller
+    var result = await sendAuthorizedHttpRequest(url, {}, 'delete');
+
+    if (result == false) {
+      return result;
+    } else {
+
+      // edittedDocuments.removeWhere((elem)=> elem['_id'] == documentId );
+      // print(edittedDocuments);
+      setMessage("Document Deleted Success");
+      return Future<bool>.value(true);
+    }
+    return false;
+  }
+
 
 }

@@ -25,6 +25,7 @@ class LoginController extends BaseController {
     if (result == false) {
       return result;
     } else {
+
       prefs.setString('_id', result['_id']);
       prefs.setString('token', result['token']);
       prefs.setString('email', result['email']);
