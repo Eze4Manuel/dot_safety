@@ -58,7 +58,6 @@ class _AccountsState extends State<Accounts> {
         source: source,
         imageQuality: 50,
         preferredCameraDevice: CameraDevice.front);
-
     // setting the loading screen
     setState(() {
       loading = true;
@@ -83,7 +82,6 @@ class _AccountsState extends State<Accounts> {
     super.initState();
     getShared();
     imagePicker = new ImagePicker();
-
   }
 
   @override
@@ -170,12 +168,15 @@ class _AccountsState extends State<Accounts> {
                                       radius: 40,
                                       backgroundColor: AppColors.color11,
                                       child: _image != null
-                                          ? Image.file(
-                                              _image,
-                                              width: 80.0,
-                                              height: 80.0,
-                                              fit: BoxFit.fill,
-                                            )
+                                          ? ClipRRect(
+                                            borderRadius: BorderRadius.circular(100.0),
+                                            child: Image.file(
+                                                _image,
+                                                width: 80.0,
+                                                height: 80.0,
+                                                fit: BoxFit.fill,
+                                              ),
+                                          )
                                           : (profileImage!.length > 0) ?
 
                                       CachedNetworkImage(

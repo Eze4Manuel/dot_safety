@@ -38,7 +38,6 @@ class _VehicleFileUploadState extends State<VehicleFileUpload> {
 
   // getting image stored
   getImage(type) async {
-    Navigator.pop(context);
     var source = type == ImageSourceType.camera
         ? ImageSource.camera
         : ImageSource.gallery;

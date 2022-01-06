@@ -436,9 +436,9 @@ class _DocumentViewState extends State<DocumentView> {
                     ],
                   ),
                 ));
+            });
           });
-        });
-  }
+       }
 }
 
 Future<void> _showMyDialog(context, document, vehicleController) async {

@@ -148,6 +148,8 @@ class VehicleController extends BaseController {
   Future<bool> asyncDocumentUpload (String text, String expiryDate, String documentType, File file) async {
     var url = Uri.parse('${Strings.domain}api/vehicle/upload_vehicle_document');
 
+    print(url);
+
     //create multipart request for POST or PATCH method
     var request = http.MultipartRequest("POST", url);
 
@@ -180,6 +182,7 @@ class VehicleController extends BaseController {
     //Get the response from the server
     var responseData = await response.stream.toBytes();
     var responseString = String.fromCharCodes(responseData);
+    print(responseString);
     var result = jsonDecode(responseString);
 
     // SharedPrefs.saveString('image_url', result['data']['image_url']);

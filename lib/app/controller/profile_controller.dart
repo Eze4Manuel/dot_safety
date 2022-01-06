@@ -64,6 +64,7 @@ class ProfileController extends BaseController {
     var responseData = await response.stream.toBytes();
     var responseString = String.fromCharCodes(responseData);
     var result = jsonDecode( responseString);
+    print(result);
     SharedPrefs.saveString('image_url', result['data']['image_url']);
     setMessage('Profile Image Uploaded');
     return true;
