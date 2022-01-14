@@ -1,5 +1,4 @@
 import 'package:dot_safety/app/ui/pages/dashboard/dashboard.dart';
-import 'package:dot_safety/app/utils/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dot_safety/app/ui/pages/onboarding.dart';
