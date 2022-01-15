@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:alan_voice/alan_voice.dart';
 import 'package:dot_safety/app/controller/dashboard_controller.dart';
 import 'package:dot_safety/app/controller/vehicle_controller.dart';
 import 'package:dot_safety/app/ui/pages/dashboard/selectLawEnforcement.dart';
@@ -27,6 +26,12 @@ class _HomeScreenState extends State<HomeScreen> {
   String profileImage = '';
 
   List<String> litems = ["Traffic Offence", "Accident", "Kidnap"];
+  List<String> imageList = [
+    "assets/images/img1.png", "assets/images/img2.png", "assets/images/img3.png",
+  "assets/images/img4.png", "assets/images/img5.png", "assets/images/img6.png",
+  "assets/images/img7.png", "assets/images/img8.png","assets/images/img1.png", "assets/images/img2.png", "assets/images/img3.png",
+    "assets/images/img4.png", "assets/images/img5.png", "assets/images/img6.png",
+    "assets/images/img7.png", "assets/images/img8.png"];
 
 
   final DashboardController dashboardController = Get.put(DashboardController());
@@ -53,41 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
     vehicleController.getUploadedVehicled();
   }
 
-  void _handleCommand(Map<String, dynamic> command) {
-    switch(command["command"]) {
-      case "kidnap":
-        showAlertDialog(context, litems, selectedIndex,
-            updateState);
-        break;
-      case "accident":
-        showAlertDialog(context, litems, selectedIndex,
-            updateState);
-        break;
-      case "traffic offence":
-        showAlertDialog(context, litems, selectedIndex,
-            updateState);
-        break;
-      default:
-        debugPrint("Unknown command");
-    }
-  }
-
-
-  _MyHomePageState() {
-    AlanVoice.addButton("a1c46dbcf4253128a38065b8253b53da2e956eca572e1d8b807a3e2338fdd0dc/stage",
-      buttonAlign: AlanVoice.BUTTON_ALIGN_RIGHT
-    );
-
-    AlanVoice.onCommand.add((command) => _handleCommand(command.data));
-  }
-
-
   @override
   void initState(){
     super.initState();
     getShared();
     getVehicleData();
-    _MyHomePageState();
+    dashboardController.getAgencyList();
    }
 
   @override
@@ -127,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   GestureDetector(
                                     onTap: () async {
-                                      if(await dashboardController.getAgencyList()){
+                                      if(dashboardController.lawEnforcementAgencies.length > 0){
                                         Scaffold.of(context).openDrawer();
                                       }else{
                                         toast(dashboardController.message.value);
@@ -211,14 +187,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                       scale: 0.03)),
                               child: Align(
                                 alignment: Alignment.topLeft,
-                                child: Text(
-                                  'Issues:',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      fontFamily: 'Montserrat Regular',
-                                      color: AppColors.appPrimaryColor),
-                                  textAlign: TextAlign.center,
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'Live',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          fontFamily: 'Montserrat Regular',
+                                          color: AppColors.color8),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -243,13 +223,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         gridDelegate:
                         SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3),
-                        itemCount: 22,
+                        itemCount: imageList.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Stack(
                             children: [
                               Container(
                                 color: AppColors.color3,
                                 margin: const EdgeInsets.all(3),
+                                child:Image.asset(imageList[index],
+                                fit: BoxFit.cover,
+                                width: DeviceUtils.getScaledWidth(context, scale: 1),
+                                height: DeviceUtils.getScaledHeight(context, scale: 1),)
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -306,6 +290,26 @@ StatelessWidget CarouselWidget(context) {
           GestureDetector(
               onTap: () {},
               child: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.color3),
+                  borderRadius: BorderRadius.circular(4), // radius of 10
+                ),
+                child: Text(
+                  'State',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    fontFamily: 'Montserrat Regular',
+                  ),
+                ),
+              )),
+          SizedBox(
+            width: DeviceUtils.getScaledWidth(context, scale: 0.01),
+          ),
+          GestureDetector(
+              onTap: () {},
+              child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.color3),
@@ -320,26 +324,7 @@ StatelessWidget CarouselWidget(context) {
                   ),
                 ),
               )),
-          SizedBox(
-            width: DeviceUtils.getScaledWidth(context, scale: 0.01),
-          ),
-          GestureDetector(
-              onTap: () {},
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.color3),
-                  borderRadius: BorderRadius.circular(4), // radius of 10
-                ),
-                child: Text(
-                  'My Community',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                    fontFamily: 'Montserrat Regular',
-                  ),
-                ),
-              )),
+
           SizedBox(
             width: DeviceUtils.getScaledWidth(context, scale: 0.02),
           ),

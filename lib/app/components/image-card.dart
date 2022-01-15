@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 StatelessWidget ImageCard(context, cardTitle, cardSubTitle, asset, isNew) {
-  return  Container(
+  return Container(
     width: DeviceUtils.getScaledWidth(context, scale: 0.29),
     height: DeviceUtils.getScaledHeight(context, scale: 0.11),
     margin: EdgeInsets.only(
@@ -15,7 +15,6 @@ StatelessWidget ImageCard(context, cardTitle, cardSubTitle, asset, isNew) {
       color: AppColors.whiteColor,
       borderRadius: BorderRadius.circular(5),
       border: Border.all(color: AppColors.whiteColor),
-
       boxShadow: [
         BoxShadow(
           color: AppColors.color2,
@@ -26,37 +25,29 @@ StatelessWidget ImageCard(context, cardTitle, cardSubTitle, asset, isNew) {
     child: Column(
       children: <Widget>[
         Container(
-          height: 134,
+            height: 134,
             width: DeviceUtils.getScaledWidth(context, scale: 1),
-
             child: CachedNetworkImage(
               imageUrl: '${Strings.domain}$asset',
-              imageBuilder:
-                  (context, imageProvider) =>
-                  Container(
-                    width: 80.0,
-                    height: 80.0,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover),
-                    ),
+              imageBuilder: (context, imageProvider) => Container(
+                width: 80.0,
+                height: 80.0,
+                decoration: BoxDecoration(
+                  image:
+                      DecorationImage(image: imageProvider, fit: BoxFit.cover),
+                ),
+              ),
+              placeholder: (context, url) => Center(
+                child: Container(
+                  child: CircularProgressIndicator(
+                    backgroundColor: AppColors.appPrimaryColor,
+                    color: AppColors.secondaryColor,
+                    strokeWidth: 3,
                   ),
-              placeholder: (context, url) =>
-                  Center(
-                    child: Container(
-                      child: CircularProgressIndicator(
-                        backgroundColor: AppColors.appPrimaryColor,
-                        color: AppColors.secondaryColor,
-                        strokeWidth: 3,
-                      ),
-                    ),
-                  ),
-              errorWidget:
-                  (context, url, error) =>
-                  Container(),
-            )
-        ),
+                ),
+              ),
+              errorWidget: (context, url, error) => Container(),
+            )),
         Container(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           decoration: new BoxDecoration(
@@ -72,14 +63,13 @@ StatelessWidget ImageCard(context, cardTitle, cardSubTitle, asset, isNew) {
           child: Column(
             children: [
               Text(
-                cardTitle.length == 0 ? 'No date' : cardTitle ,
+                cardTitle.length == 0 ? 'No date' : cardTitle,
                 style: GoogleFonts.montserrat(
                     textStyle: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
                 )),
               ),
-
             ],
           ),
         ),
@@ -88,10 +78,8 @@ StatelessWidget ImageCard(context, cardTitle, cardSubTitle, asset, isNew) {
   );
 }
 
-
-
 StatelessWidget ImageCardAsset(context, cardTitle, asset) {
-  return  Container(
+  return Container(
     width: DeviceUtils.getScaledWidth(context, scale: 0.29),
     margin: EdgeInsets.only(
         right: DeviceUtils.getScaledWidth(context, scale: 0.03)),
@@ -120,12 +108,11 @@ StatelessWidget ImageCardAsset(context, cardTitle, asset) {
               ],
             ),
             width: DeviceUtils.getScaledWidth(context, scale: 1),
-            child: Image.asset(asset, fit:BoxFit.cover)
-        ),
+            child: Image.asset(asset, fit: BoxFit.cover)),
         Container(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-           height: 90,
-           decoration: new BoxDecoration(
+          height: 90,
+          decoration: new BoxDecoration(
             color: Colors.transparent,
             border: Border(
               top: BorderSide(
@@ -139,9 +126,9 @@ StatelessWidget ImageCardAsset(context, cardTitle, asset) {
             cardTitle,
             style: GoogleFonts.montserrat(
                 textStyle: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                )),
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            )),
             textAlign: TextAlign.center,
           ),
         ),
@@ -151,12 +138,12 @@ StatelessWidget ImageCardAsset(context, cardTitle, asset) {
 }
 
 StatelessWidget ImageCardAdd(context, cardTitle, asset, isNew) {
-  return  Container(
-    width: DeviceUtils.getScaledWidth(context, scale: 0.29),
+  return Container(
+    width: DeviceUtils.getScaledWidth(context, scale: 0.22),
     margin: EdgeInsets.only(
         right: DeviceUtils.getScaledWidth(context, scale: 0.03)),
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(6),
+      borderRadius: BorderRadius.circular(106),
       border: Border.all(color: AppColors.whiteColor),
       boxShadow: [
         BoxShadow(
@@ -167,49 +154,92 @@ StatelessWidget ImageCardAdd(context, cardTitle, asset, isNew) {
     ),
     child: Column(
       children: <Widget>[
-        Container(
-            height: 104,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: AppColors.whiteColor),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.color2,
-                  spreadRadius: 1,
+        ClipRRect(
+          child: Container(
+              height: 84,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(108),
+                border: Border.all(color: AppColors.secondaryColor, width: 4),
+              ),
+              width: DeviceUtils.getScaledWidth(context, scale: 1),
+              padding: EdgeInsets.all(3),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(108.0),
+                child: Image.asset(
+                  asset,
+                  fit: BoxFit.cover,
+                  width: 40,
+                  height: 40,
                 ),
-              ],
-            ),
-            width: DeviceUtils.getScaledWidth(context, scale: 1),
-            child: Image.asset(asset, fit:BoxFit.cover)
+              )),
         ),
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          width: DeviceUtils.getScaledWidth(context, scale: 1),
-          decoration: new BoxDecoration(
-            color: AppColors.whiteColor,
-            border: Border(
-              top: BorderSide(
-                //
-                color: AppColors.color10,
-                width: 0.1,
-              ),
-            ),
-          ),
-          child: Column(
-            children: [
-              Text(
-                cardTitle,
-                style: GoogleFonts.montserrat(
-                    textStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    )),
-              ),
 
-            ],
-          ),
-        ),
       ],
     ),
   );
 }
+
+//
+// StatelessWidget ImageCardAdd(context, cardTitle, asset, isNew) {
+//   return  Container(
+//     width: DeviceUtils.getScaledWidth(context, scale: 0.29),
+//     margin: EdgeInsets.only(
+//         right: DeviceUtils.getScaledWidth(context, scale: 0.03)),
+//     decoration: BoxDecoration(
+//       borderRadius: BorderRadius.circular(6),
+//       border: Border.all(color: AppColors.whiteColor),
+//       boxShadow: [
+//         BoxShadow(
+//           color: AppColors.color2,
+//           spreadRadius: 1,
+//         ),
+//       ],
+//     ),
+//     child: Column(
+//       children: <Widget>[
+//         Container(
+//             height: 104,
+//             decoration: BoxDecoration(
+//               borderRadius: BorderRadius.circular(6),
+//               border: Border.all(color: AppColors.whiteColor),
+//               boxShadow: [
+//                 BoxShadow(
+//                   color: AppColors.color2,
+//                   spreadRadius: 1,
+//                 ),
+//               ],
+//             ),
+//             width: DeviceUtils.getScaledWidth(context, scale: 1),
+//             child: Image.asset(asset, fit:BoxFit.cover)
+//         ),
+//         Container(
+//           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+//           width: DeviceUtils.getScaledWidth(context, scale: 1),
+//           decoration: new BoxDecoration(
+//             color: AppColors.whiteColor,
+//             border: Border(
+//               top: BorderSide(
+//                 //
+//                 color: AppColors.color10,
+//                 width: 0.1,
+//               ),
+//             ),
+//           ),
+//           child: Column(
+//             children: [
+//               Text(
+//                 cardTitle,
+//                 style: GoogleFonts.montserrat(
+//                     textStyle: TextStyle(
+//                       fontWeight: FontWeight.bold,
+//                       fontSize: 12,
+//                     )),
+//               ),
+//
+//             ],
+//           ),
+//         ),
+//       ],
+//     ),
+//   );
+// }

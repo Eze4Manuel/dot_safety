@@ -53,20 +53,44 @@ class _SelectLawEnforcementState extends State<SelectLawEnforcement> {
                         SizedBox(
                           height: DeviceUtils.getScaledHeight(context, scale: 0.07),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                    // radius of 10
-                                    color: AppColors.color2,
-                                  ),
-                                  child: Icon(Icons.close))),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                              },
+                              child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(100),
+                                        // radius of 10
+                                        color: AppColors.color2,
+                                      ),
+                                      child: Image.asset('assets/images/logo.png',
+                                      width: 40,
+                                      height: 40,))),
+                            ),
+                            // SizedBox(
+                            //   width: DeviceUtils.getScaledWidth(context, scale: 0.02),
+                            // ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(100),
+                                        // radius of 10
+                                        color: AppColors.color2,
+                                      ),
+                                      child: Icon(Icons.close))),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: DeviceUtils.getScaledHeight(context, scale: 0.05),
