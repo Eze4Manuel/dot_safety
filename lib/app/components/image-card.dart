@@ -139,7 +139,7 @@ StatelessWidget ImageCardAsset(context, cardTitle, asset) {
 
 StatelessWidget ImageCardAdd(context, cardTitle, asset, isNew) {
   return Container(
-    width: DeviceUtils.getScaledWidth(context, scale: 0.22),
+    width: 84,
     margin: EdgeInsets.only(
         right: DeviceUtils.getScaledWidth(context, scale: 0.03)),
     decoration: BoxDecoration(

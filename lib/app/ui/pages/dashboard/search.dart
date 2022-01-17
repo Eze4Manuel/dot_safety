@@ -152,9 +152,7 @@ StatelessWidget CarouselWidget(context, dashboardController) {
             },
           ),
         ),
-
       ],
     ),
-
   );
 }

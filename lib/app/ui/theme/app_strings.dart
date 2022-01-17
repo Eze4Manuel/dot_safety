@@ -1,11 +1,17 @@
 class Strings {
   Strings._();
 
+
   // static const String domain = "http://10.0.2.2:5000/";
   static const String domain = "https://tranquil-hamlet-74718.herokuapp.com/";
   static const String appName = "Dot Safety";
+
+  static const String APP_ID = '9a7b16a54d59494da8e7ddbec983655b';
+  static const String rtcToken = "0069a7b16a54d59494da8e7ddbec983655bIABNpIIJXWpnfgVuxtQahioIIWqkCv46NG4izh9MAp7eCGb1pG8AAAAAEADC8VeAbdXkYQEAAQBt1eRh";
+
   static const String onBoardingTitle1 = "SECURITY ALERT SYSTEM";
   static const String onBoardingText1 = "Dot safety assures you of safety by activating instant security alert to relevant government agencies, family and friends to ensure your protection at all times.";
+
 
   static const String onBoardingTitle2 = "POLICE ARE NOW OUR FRIEND";
   static const String onBoardingText2 = "Dot safety creates a ground for transparency and understanding with security agencies & ensures every citizen’s right is respected by affiliating with different government agencies.";

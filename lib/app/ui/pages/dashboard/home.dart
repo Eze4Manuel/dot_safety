@@ -1,8 +1,9 @@
 import 'dart:convert';
-
 import 'package:dot_safety/app/controller/dashboard_controller.dart';
 import 'package:dot_safety/app/controller/vehicle_controller.dart';
+import 'package:dot_safety/app/ui/pages/dashboard/broadcast_page.dart';
 import 'package:dot_safety/app/ui/pages/dashboard/selectLawEnforcement.dart';
+import 'package:dot_safety/app/ui/pages/dashboard/speech_recognition.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:dot_safety/app/utils/shared_prefs.dart';
 import 'package:dot_safety/app/utils/temp_data.dart';
@@ -12,7 +13,7 @@ import 'package:dot_safety/app/utils/device_utils.dart';
 import 'package:dot_safety/app/ui/theme/app_colors.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -24,6 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int? selectedIndex;
   String? firstName = '';
   String profileImage = '';
+
+  final _channelName = TextEditingController();
+  String check = '';
 
   List<String> litems = ["Traffic Offence", "Accident", "Kidnap"];
   List<String> imageList = [
@@ -58,13 +62,16 @@ class _HomeScreenState extends State<HomeScreen> {
     vehicleController.getUploadedVehicled();
   }
 
+
+
   @override
   void initState(){
     super.initState();
     getShared();
     getVehicleData();
     dashboardController.getAgencyList();
-   }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -112,30 +119,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: Align(
                                       alignment: Alignment.centerRight,
                                       child: CircleAvatar(
-                                        radius: 25.0,
+                                        radius: 20.0,
                                         backgroundColor: AppColors.color11,
-                                        child: (profileImage.length > 0) ?
-                                         CachedNetworkImage(
-                                          imageUrl: profileImage,
-                                          fit: BoxFit.cover,
-                                          imageBuilder: (context, imageProvider) => Container(
-                                            width: 80.0,
-                                            height: 80.0,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              image: DecorationImage(
-                                                  image: imageProvider, fit: BoxFit.cover),
-                                            ),),
-                                          placeholder: (context, url) => CircleAvatar(
-                                            radius: 25,
-                                            backgroundColor: AppColors.color11,
-                                            child: Container(),
-                                          ),
-                                          errorWidget: (context, url, error) => Container(),
-                                        )
-                                            : Container()
+                                        child: Image.asset('assets/images/logo.png')
                                       ),
-
                                     ),
                                   ),
                                   SizedBox(
@@ -155,8 +142,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  showAlertDialog(context, litems, selectedIndex,
-                                      updateState);
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => SpeechScreen()));
                                 },
                                 child: Align(
                                   alignment: Alignment.centerRight,
@@ -170,6 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                               ),
+
                             ],
                           ),
                         ),
@@ -184,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Padding(
                               padding: EdgeInsets.only(
                                   left: DeviceUtils.getScaledWidth(context,
-                                      scale: 0.03)),
+                                      scale: 0.06)),
                               child: Align(
                                 alignment: Alignment.topLeft,
                                 child: Row(
@@ -193,8 +181,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       'Live',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                          fontFamily: 'Montserrat Regular',
+                                          fontSize: 18,
+                                          fontFamily: 'Montserrat Bold',
                                           color: AppColors.color8),
                                       textAlign: TextAlign.center,
                                     ),
@@ -406,3 +394,6 @@ showAlertDialog(BuildContext context, litems, selectedIndex, updateState) {
     },
   );
 }
+
+
+
