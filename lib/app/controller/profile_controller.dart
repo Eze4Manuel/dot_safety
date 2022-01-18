@@ -111,7 +111,8 @@ class ProfileController extends BaseController {
     if (result == false) {
       return result;
     } else {
-      contacts = result;
+      contacts = result ?? [];
+      print(contacts);
       return Future<bool>.value(true);
     }
     return false;

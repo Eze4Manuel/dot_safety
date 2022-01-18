@@ -56,7 +56,8 @@ class _SettingsViewState extends State<SettingsView> {
             automaticallyImplyLeading: false,
             leading: IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.of(context)
+                    .pop();
               },
               icon: Padding(
                 padding: const EdgeInsets.only(top: 0),
@@ -332,24 +333,6 @@ class _SettingsViewState extends State<SettingsView> {
                                           }),
                                     ),
                                   ),
-
-                                  // Align(
-                                  //   alignment: Alignment.centerRight,
-                                  //   child: RaisedButton(
-                                  //     onPressed: () {},
-                                  //     color: AppColors.appPrimaryColor,
-                                  //     shape: RoundedRectangleBorder(
-                                  //         borderRadius: BorderRadius.circular(10)),
-                                  //     child: Text(
-                                  //       "Save",
-                                  //       style: TextStyle(
-                                  //           fontWeight: FontWeight.w400,
-                                  //           fontFamily: 'Montserrat Regular',
-                                  //           fontSize: 14,
-                                  //           color: AppColors.whiteColor),
-                                  //     ),
-                                  //   ),
-                                  // ),
                                 ],
                               )),
                             ),

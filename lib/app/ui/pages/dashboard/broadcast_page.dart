@@ -1,4 +1,5 @@
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
+import 'package:dot_safety/app/utils/device_utils.dart';
 import 'package:flutter/material.dart';
 
 import 'package:agora_rtc_engine/rtc_engine.dart';
@@ -97,12 +98,16 @@ class _BroadcastPageState extends State<BroadcastPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Stack(
-          children: <Widget>[
-            _broadcastView(),
-            _toolbar(),
-          ],
+      body: Container(
+        height: DeviceUtils.getScaledHeight(context, scale: 1),
+        width: DeviceUtils.getScaledWidth(context, scale: 1),
+        child: Center(
+          child: Stack(
+            children: <Widget>[
+              _broadcastView(),
+              _toolbar(),
+            ],
+          ),
         ),
       ),
     );

@@ -206,11 +206,10 @@ class _AddContactState extends State<AddContact> {
                                             .addFamilyContact( name, phone_number)) {
                                           toast(profileController.message.value);
                                           _btnController.reset();
-                                          Navigator.pushAndRemoveUntil(context,
+                                          Navigator.pushReplacement(context,
                                             MaterialPageRoute(
                                               builder: (BuildContext context) => SettingsView(),
                                             ),
-                                                (route) => false,
                                           );
                                         } else {
                                           toast(profileController.message.value);
