@@ -145,7 +145,7 @@ StatelessWidget CarouselWidget(context, dashboardController) {
               return ClipRRect(
                 child: ImageCardAdd(
                     context,
-                    dashboardController.lawEnforcementAgencies,
+                    dashboardController.lawEnforcementAgencies[i],
                     'assets/images/img2.png',
                     true),
               );

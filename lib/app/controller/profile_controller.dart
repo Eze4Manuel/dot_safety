@@ -20,7 +20,6 @@ class ProfileController extends BaseController {
       "new_password": newPassword,
       "_id": await SharedPrefs.readSingleString('_id')
     };
-    print(data);
 
     // Sending parameters to http request. Implemented in base controller
     var result = await sendAuthorizedHttpRequest(url, data, 'post');
@@ -64,7 +63,6 @@ class ProfileController extends BaseController {
     var responseData = await response.stream.toBytes();
     var responseString = String.fromCharCodes(responseData);
     var result = jsonDecode( responseString);
-    print(result);
     SharedPrefs.saveString('image_url', result['data']['image_url']);
     setMessage('Profile Image Uploaded');
     return true;
@@ -77,9 +75,6 @@ class ProfileController extends BaseController {
 
     var user_id = await SharedPrefs.readSingleString('_id');
 
-    print(user_id);
-
-    print(url);
     data = {
       "user_id": user_id,
       "name": name,
@@ -112,7 +107,6 @@ class ProfileController extends BaseController {
       return result;
     } else {
       contacts = result ?? [];
-      print(contacts);
       return Future<bool>.value(true);
     }
     return false;
@@ -123,7 +117,6 @@ class ProfileController extends BaseController {
 
     var user_id = await SharedPrefs.readSingleString('_id');
 
-    print(indexNumber);
     data = {
       "user_id": user_id,
       "index_number": indexNumber,

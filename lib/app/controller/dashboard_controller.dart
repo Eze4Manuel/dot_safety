@@ -48,7 +48,6 @@ class DashboardController extends BaseController {
       "comment": comment
     };
 
-    print(data);
 
     // Sending parameters to http request. Implemented in base controller
     var result = await sendAuthorizedHttpRequest(url, data, 'post');

@@ -23,6 +23,12 @@ class _SelectLawEnforcementState extends State<SelectLawEnforcement> {
   int? selectedIndex;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(widget.lawEnforcementAgencies);
+  }
+  @override
   Widget build(BuildContext context) {
     List litems = widget.lawEnforcementAgencies;
 
@@ -132,14 +138,17 @@ class _SelectLawEnforcementState extends State<SelectLawEnforcement> {
                               return ListTile(
                                 leading: Icon(
                                   (selectedIndex == index)
-                                      ? Icons.check_box
-                                      : Icons.check_box_outline_blank,
+                                      ? Icons.star
+                                      : Icons.star,
                                   color: AppColors.appPrimaryColor,
                                 ),
                                 title: Text(
                                   dashboardController.lawEnforcementAgencies[index]['law_enforcement'],
-                                  style: TextStyle(
-                                    fontFamily: 'Montserrat Regular',
+                                  style:  TextStyle(
+                                      color: AppColors.color10,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      fontFamily: 'Montserrat Bold'
                                   ),
                                 ),
                                 onTap: () {
@@ -150,7 +159,7 @@ class _SelectLawEnforcementState extends State<SelectLawEnforcement> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Offense( offenseId:litems[index])));
+                                          builder: (context) => Offense( offenseId: litems[index])));
                                 },
                               );
                             }),

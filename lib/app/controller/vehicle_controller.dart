@@ -31,8 +31,6 @@ class VehicleController extends BaseController {
       "user_id": await SharedPrefs.readSingleString('_id')
     };
 
-    print(data);
-
     // Sending parameters to http request. Implemented in base controller
     var result = await sendAuthorizedHttpRequest(url, data, 'post');
     if (result == false) {
@@ -56,8 +54,6 @@ class VehicleController extends BaseController {
       "goods_shortnote": goodsShortnote,
       "user_id": await SharedPrefs.readSingleString('_id')
     };
-
-    print(data);
 
     // Sending parameters to http request. Implemented in base controller
     var result = await sendAuthorizedHttpRequest(url, data, 'post');
@@ -86,7 +82,6 @@ class VehicleController extends BaseController {
         return result;
       } else {
         vehicles.addAll(result);
-        print(vehicles);
         setMessage("Goods Creation Success");
         return Future<bool>.value(true);
       }
@@ -106,7 +101,6 @@ class VehicleController extends BaseController {
         return result;
       } else {
         vehicles.removeWhere((elem)=> elem['_id'] == vehicleId );
-        print(vehicles);
         setMessage("Vehicle Deleted Success");
         return Future<bool>.value(true);
       }
@@ -182,12 +176,8 @@ class VehicleController extends BaseController {
     //Get the response from the server
     var responseData = await response.stream.toBytes();
     var responseString = String.fromCharCodes(responseData);
-    print(responseString);
     var result = jsonDecode(responseString);
 
-    // SharedPrefs.saveString('image_url', result['data']['image_url']);
-
-    print(result);
 
     if (documents.isEmpty) {
       documents.addNonNull({
@@ -200,7 +190,6 @@ class VehicleController extends BaseController {
       var ind = documents.indexWhere((element) =>
       element['document_type'] == result['data']['document_type']);
 
-      print(ind);
       // If element doesn't exist in list add it
       if (ind == -1) {
         documents.addNonNull({
@@ -213,13 +202,11 @@ class VehicleController extends BaseController {
         // if element exists, update it
         var element = documents.elementAt(ind);
         element['images'] = [...element['images'], result['data']['image_url']];
-        print(element);
 
         documents.replaceRange(ind, ind + 1, [element]);
       }
     }
 
-    print(documents);
     setMessage('Document Upload Success');
     return true;
   }
@@ -245,7 +232,6 @@ class VehicleController extends BaseController {
 
   Future<bool> deleteDocument( String documentId) async {
     var url = Uri.parse('${Strings.domain}api/vehicle/delete_document/$documentId');
-    print(edittedDocuments);
 
     // Sending parameters to http request. Implemented in base controller
     var result = await sendAuthorizedHttpRequest(url, {}, 'delete');
@@ -255,7 +241,6 @@ class VehicleController extends BaseController {
     } else {
 
       // edittedDocuments.removeWhere((elem)=> elem['_id'] == documentId );
-      // print(edittedDocuments);
       setMessage("Document Deleted Success");
       return Future<bool>.value(true);
     }

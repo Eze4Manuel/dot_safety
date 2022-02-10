@@ -304,7 +304,8 @@ class _SignupState extends State<Signup> {
                                 color: AppColors.color10),
                           ),
 
-                          DropdownButtonFormField(
+                          DropdownButtonFormField<dynamic>(
+                            value: null,
                               decoration: InputDecorationNoPrefixValues(
                                   hintText: "Select state",
                                   prefixIcon: Icons.person_outline),

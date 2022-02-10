@@ -77,7 +77,6 @@ class BaseController extends GetxController {
 
 
 
-
   sendAuthorizedHttpRequest( url, data, httpMethod) async {
     // unsetting messages
     setMessage('');

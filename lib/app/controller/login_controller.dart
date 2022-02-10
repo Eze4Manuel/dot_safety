@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dot_safety/app/controller/base_controller.dart';
-import 'package:dot_safety/app/model/account.dart';
 import 'package:dot_safety/app/ui/theme/app_strings.dart';
 import 'package:dot_safety/app/utils/shared_prefs.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -18,14 +17,12 @@ class LoginController extends BaseController {
 
     data = {"email": email, "password": password};
 
-    print(url);
 
     // Sending parameters to http request. Implemented in base controller
     var result = await sendHttpRequest(url, data, 'post');
     if (result == false) {
       return result;
     } else {
-
       prefs.setString('_id', result['_id']);
       prefs.setString('token', result['token']);
       prefs.setString('email', result['email']);
@@ -45,7 +42,6 @@ class LoginController extends BaseController {
 
     data = {'email': email};
 
-    print(data);
     // Sending parameters to http request. Implemented in base controller
     var result = await sendHttpRequest(url, data, 'post');
     if (result == false) {
@@ -62,8 +58,6 @@ class LoginController extends BaseController {
     var url = Uri.parse('${Strings.domain}api/user/reset_password');
 
     data = {'newPassword': newPassword, 'email': email, 'passcode': passcode};
-
-    print(data);
 
     // Sending parameters to http request. Implemented in base controller
     var result = await sendHttpRequest(url, data, 'post');
@@ -83,8 +77,6 @@ class LoginController extends BaseController {
     data = {'email': email};
 
     print(url);
-    print(data);
-
     // Sending parameters to http request. Implemented in base controller
     var result = await sendHttpRequest(url, data, 'post');
     if (result == false) {

@@ -45,6 +45,10 @@ dependencies:
   avatar_glow: ^2.0.2
   agora_rtc_engine: ^4.2.0
   permission_handler: ^8.3.0
+  flutter_tts: ^3.3.3
+  socket_io_client: ^1.0.2
+  flutter_beep: ^1.0.0
+  modal_bottom_sheet: ^2.0.0
 
 flutter_icons:
   android: true

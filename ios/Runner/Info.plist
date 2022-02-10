@@ -43,6 +43,10 @@
         <key>Privacy</key>
         <string>Camera Usage Description</string>
 
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>Save video in gallery</string>
+        <key>NSMicrophoneUsageDescription</key>
+        <string>Save audio in video</string>
 
 		<key>UISupportedInterfaceOrientations</key>
 		<array>

@@ -138,6 +138,7 @@ StatelessWidget ImageCardAsset(context, cardTitle, asset) {
 }
 
 StatelessWidget ImageCardAdd(context, cardTitle, asset, isNew) {
+  // print(cardTitle['reviews'][]);
   return Container(
     width: 84,
     margin: EdgeInsets.only(
@@ -156,23 +157,31 @@ StatelessWidget ImageCardAdd(context, cardTitle, asset, isNew) {
       children: <Widget>[
         ClipRRect(
           child: Container(
-              height: 84,
+              height: 74,
+              width: 74,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(108),
                 border: Border.all(color: AppColors.secondaryColor, width: 4),
               ),
-              width: DeviceUtils.getScaledWidth(context, scale: 1),
-              padding: EdgeInsets.all(3),
+               padding: EdgeInsets.all(3),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(108.0),
                 child: Image.asset(
                   asset,
                   fit: BoxFit.cover,
-                  width: 40,
-                  height: 40,
+                  width: 30,
+                  height: 30,
                 ),
               )),
         ),
+        Text(cardTitle['abbv'],
+          style:
+          TextStyle(
+              color: AppColors.color10,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+              fontFamily: 'Montserrat Bold'
+          ),)
 
       ],
     ),

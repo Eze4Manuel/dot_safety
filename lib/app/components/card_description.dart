@@ -140,7 +140,7 @@ StatelessWidget CardDescription(
             child: Image.asset(
           asset,
           width: DeviceUtils.getScaledWidth(context, scale: 1),
-          height: DeviceUtils.getScaledHeight(context, scale: 0.34),
+          height: DeviceUtils.getScaledHeight(context, scale: 0.25),
           fit: BoxFit.cover,
         )),
         Container(
@@ -160,27 +160,33 @@ StatelessWidget CardDescription(
             children: [
               Text(
                 cardTitle,
-                style: GoogleFonts.montserrat(
-                    textStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: AppColors.appPrimaryColor)),
+                  style:
+                  TextStyle(
+                      color: AppColors.appPrimaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      fontFamily: 'Montserrat Bold'
+                  ),
               ),
               Text(
                 'Description',
-                style: GoogleFonts.montserrat(
-                    textStyle: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 18,
-                        color: AppColors.appPrimaryColor)),
+                  style:
+                  TextStyle(
+                      color: AppColors.color10,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      fontFamily: 'Montserrat Bold'
+                  ),
               ),
               Text(
                 cardSubTitle,
-                style: GoogleFonts.montserrat(
-                    textStyle: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14,
-                )),
+                style:
+                TextStyle(
+                    color: AppColors.color10,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 14,
+                    fontFamily: 'Montserrat Regular'
+                ),
               ),
               SizedBox(
                 height: DeviceUtils.getScaledHeight(context, scale: 0.02),
@@ -190,19 +196,23 @@ StatelessWidget CardDescription(
                 children: [
                   Text(
                     'Fine',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                            color: AppColors.appPrimaryColor)),
+                    style:
+                    TextStyle(
+                        color: AppColors.color10,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        fontFamily: 'Montserrat Bold'
+                    ),
                   ),
                   Text(
                     'N2000',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 13,
-                    )),
+                    style:
+                    TextStyle(
+                        color: AppColors.color10,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        fontFamily: 'Montserrat Bold'
+                    ),
                   ),
                 ],
               ),
@@ -214,19 +224,23 @@ StatelessWidget CardDescription(
                 children: [
                   Text(
                     'Points',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                            color: AppColors.appPrimaryColor)),
+                    style:
+                    TextStyle(
+                        color: AppColors.color10,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        fontFamily: 'Montserrat Bold'
+                    ),
                   ),
                   Text(
                     '5',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 13,
-                    )),
+                    style:
+                    TextStyle(
+                        color: AppColors.color10,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        fontFamily: 'Montserrat Bold'
+                    ),
                   ),
                 ],
               )

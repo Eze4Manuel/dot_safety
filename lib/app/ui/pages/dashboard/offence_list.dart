@@ -78,7 +78,7 @@ class _OffenseState extends State<Offense> {
               // height: DeviceUtils.getScaledHeight(context, scale: 1),
                 width: DeviceUtils.getScaledWidth(context, scale: 1),
                 color: AppColors.whiteColor,
-                child: OffenseList(reviews: jsonDecode(widget.offenseId['reviews']), offenseId: widget.offenseId['_id'],)),
+                child: OffenseList(reviews: widget.offenseId['reviews'], offenseId: widget.offenseId['_id'],)),
           );
         },
         key: null,

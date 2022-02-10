@@ -4,10 +4,22 @@ class Strings {
 
   // static const String domain = "http://10.0.2.2:5000/";
   static const String domain = "https://tranquil-hamlet-74718.herokuapp.com/";
+  static const String agoraDaomin = "https://api.agora.io/";
   static const String appName = "Dot Safety";
 
-  static const String APP_ID = '9a7b16a54d59494da8e7ddbec983655b';
-  static const String rtcToken = "0069a7b16a54d59494da8e7ddbec983655bIABNpIIJXWpnfgVuxtQahioIIWqkCv46NG4izh9MAp7eCGb1pG8AAAAAEADC8VeAbdXkYQEAAQBt1eRh";
+
+  static const String APP_ID = '0b4021a7e37f44fa8493eeef9aae3a34';
+  static const String cname = 'sabasafety';
+  static const String rtcToken = "0060b4021a7e37f44fa8493eeef9aae3a34IADeBExWcCyAj54yQMJH22Kv43lSQzOBL3Ac1W0wfUWET3HW3BEAAAAAEAD1z9KPwzgDYgEAAQDBOANi";
+
+  static const String vendor = '1';
+  static const String region = '1';
+  static const String bucket = 'dotsafety';
+  static const String accessKey = 'AKIA5JAX7QWYGEPIL5WO';
+  static const String secretKey = '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';
+
+
+
 
   static const String onBoardingTitle1 = "SECURITY ALERT SYSTEM";
   static const String onBoardingText1 = "Dot safety assures you of safety by activating instant security alert to relevant government agencies, family and friends to ensure your protection at all times.";

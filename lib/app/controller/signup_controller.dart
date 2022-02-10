@@ -53,8 +53,6 @@ class SignUpController extends BaseController {
       'license': license
     };
 
-    print(data);
-
     // Sending parameters to http request. Implemented in base controller
     var result = await sendHttpRequest(url, data, 'post');
     if (result == false) {
